@@ -1,7 +1,6 @@
 package com.boodabest.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +23,7 @@ class HomeFragment : BaseFragment() {
     @Inject
     lateinit var appExecutors: AppExecutors
 
-    var productAdapter = ProductListAdapter()
-
+    private var productAdapter = ProductListAdapter()
 
     private val productViewModel: ProductViewModel by viewModels {
         viewModelFactory
@@ -40,10 +38,11 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        productList.layoutManager = LinearLayoutManager(context)
-        productList.adapter = productAdapter
+        productList.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = productAdapter
+        }
         productViewModel.items.observe(viewLifecycleOwner, Observer { items ->
-            Log.w("product", items.data.toString())
             productAdapter.submitList(items.data)
         })
     }
