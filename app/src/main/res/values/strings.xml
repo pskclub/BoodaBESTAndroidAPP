@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BoodaBEST</string>
+    <string name="nav_bottom_home">Home</string>
+    <string name="nav_bottom_notification">Notification</string>
+    <string name="nav_bottom_cart">Cart</string>
+    <string name="nav_bottom_account">Account</string>
+</resources>
