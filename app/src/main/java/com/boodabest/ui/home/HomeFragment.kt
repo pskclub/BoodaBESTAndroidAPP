@@ -12,16 +12,19 @@ import com.boodabest.R
 import com.boodabest.repositories.banner.BannerViewModel
 import com.boodabest.repositories.product.ProductViewModel
 import com.boodabest.ui.BannerAdapter
-import com.smarteist.autoimageslider.IndicatorAnimations
-import com.smarteist.autoimageslider.SliderAnimations
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
 class HomeFragment : BaseFragment() {
-    private var productAdapter = ProductAdapter()
-    private var bannerAdapter = BannerAdapter()
+    private var productLatestAdapter = ProductAdapter()
+    private var productBestSellerAdapter = ProductAdapter()
+    private var bannerAdapter = BannerAdapter(context)
 
-    private val productViewModel: ProductViewModel by viewModels {
+    private val productLatestViewModel: ProductViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val productBestSellerViewModel: ProductViewModel by viewModels {
         viewModelFactory
     }
 
@@ -38,22 +41,30 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        productList.apply {
+        productListLatest.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = productAdapter
+            adapter = productLatestAdapter
+        }
+
+        productListBestSeller.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = productBestSellerAdapter
         }
 
 
-//        bannerList.setSliderAdapter(bannerAdapter)
+        bannerList.setSliderAdapter(bannerAdapter)
 
-        productViewModel.items.observe(viewLifecycleOwner, Observer { product ->
-            productAdapter.submitList(product.data)
+        productLatestViewModel.items.observe(viewLifecycleOwner, Observer { product ->
+            productLatestAdapter.submitList(product.data)
         })
 
-//        bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
-//            bannerAdapter.submitList(banner.data)
-//            bannerList.startAutoCycle()
-//        })
+        productBestSellerViewModel.items.observe(viewLifecycleOwner, Observer { product ->
+            productBestSellerAdapter.submitList(product.data)
+        })
+
+        bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
+            bannerAdapter.renewItems(banner.data)
+        })
     }
 
 }
