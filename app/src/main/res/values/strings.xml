@@ -8,5 +8,5 @@
     <string name="product_latest">Latest</string>
     <string name="product_best_seller">Best Seller</string>
 
-    <string name="brand_explore">Explore the BEST brands</string>
+    <string name="brand_explore">Explore the <font color='#00b0ff'>BEST</font> brands</string>
 </resources>

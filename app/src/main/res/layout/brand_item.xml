@@ -7,6 +7,7 @@
     app:cardCornerRadius="@dimen/roundedLG"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true"
+    app:cardBackgroundColor="@color/primaryLight"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
@@ -21,10 +22,21 @@
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
 
-        <ImageView
-            android:id="@+id/logoImage"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
 
+            <ImageView
+                android:id="@+id/logoImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true" />
+        </LinearLayout>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

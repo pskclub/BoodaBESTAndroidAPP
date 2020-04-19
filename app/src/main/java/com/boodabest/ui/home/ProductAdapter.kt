@@ -50,7 +50,6 @@ class ProductAdapter :
             Glide
                 .with(this.itemView.context)
                 .load(product.thumbnailURL)
-                .centerCrop()
                 .into(thumbnailURL)
         }
     }

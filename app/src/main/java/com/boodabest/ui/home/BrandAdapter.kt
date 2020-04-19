@@ -41,13 +41,11 @@ class BrandAdapter : ListAdapter<Brand, BrandAdapter.BrandViewHolder>(BrandDiffC
             Glide
                 .with(this.itemView.context)
                 .load(brand.coverImageURL)
-                .centerCrop()
                 .into(coverImage)
 
             Glide
                 .with(this.itemView.context)
                 .load(brand.logoImageURL)
-                .centerCrop()
                 .into(logoImage)
         }
     }
