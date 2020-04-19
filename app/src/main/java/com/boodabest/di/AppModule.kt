@@ -2,11 +2,9 @@ package com.boodabest.di
 
 import android.app.Application
 import androidx.room.Room
-import com.boodabest.database.BannerDao
-import com.boodabest.database.BannerDb
-import com.boodabest.database.ProductDao
-import com.boodabest.database.ProductDb
+import com.boodabest.database.*
 import com.boodabest.repositories.banner.BannerService
+import com.boodabest.repositories.brand.BrandService
 import com.boodabest.repositories.product.ProductService
 import com.boodabest.utils.LiveDataCallAdapterFactory
 import dagger.Module
@@ -15,6 +13,8 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+
+var baseAPI = "https://boodabest-ecom.pams.ai/api/"
 
 
 @Module(includes = [ViewModelModule::class])
@@ -40,7 +40,7 @@ class AppModule {
         val okHttpClient = httpClient.build()
 
         return Retrofit.Builder()
-            .baseUrl("https://boodabest-ecom.pams.ai/api/")
+            .baseUrl(baseAPI)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .client(okHttpClient)
@@ -85,7 +85,7 @@ class AppModule {
         val okHttpClient = httpClient.build()
 
         return Retrofit.Builder()
-            .baseUrl("https://boodabest-ecom.pams.ai/api/")
+            .baseUrl(baseAPI)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .client(okHttpClient)
@@ -107,6 +107,49 @@ class AppModule {
     @Provides
     fun provideBannerDao(db: BannerDb): BannerDao {
         return db.bannerDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideBrandService(): BrandService {
+        val httpClient = OkHttpClient.Builder()
+        httpClient.addInterceptor { chain ->
+            val original = chain.request()
+
+            // Request customization: add request headers
+            val requestBuilder = original.newBuilder()
+                .addHeader("language", "en")
+                .addHeader("x-device", "android")
+                .addHeader("x-timestamp", "2019-08-15 18:24:00")
+
+            val request = requestBuilder.build()
+            chain.proceed(request)
+        }
+
+        val okHttpClient = httpClient.build()
+
+        return Retrofit.Builder()
+            .baseUrl(baseAPI)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .client(okHttpClient)
+            .build()
+            .create(BrandService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideBrandDb(app: Application): BrandDb {
+        return Room
+            .inMemoryDatabaseBuilder(app, BrandDb::class.java)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideBrandDao(db: BrandDb): BrandDao {
+        return db.brandDao()
     }
 
 }

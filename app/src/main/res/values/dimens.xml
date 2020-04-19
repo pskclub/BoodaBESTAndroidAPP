@@ -6,4 +6,9 @@
     <dimen name="textH6">18sp</dimen>
     <dimen name="textH5">20sp</dimen>
     <dimen name="textH4">24sp</dimen>
+
+
+    <dimen name="rounded">8dp</dimen>
+    <dimen name="roundedLG">10dp</dimen>
+
 </resources>

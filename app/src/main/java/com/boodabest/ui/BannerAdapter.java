@@ -16,8 +16,7 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BannerAdapter extends
-        SliderViewAdapter<BannerAdapter.SliderAdapterVH> {
+public class BannerAdapter extends SliderViewAdapter<BannerAdapter.SliderAdapterVH> {
 
     private Context context;
     private List<Banner> mSliderItems = new ArrayList<>();
@@ -49,7 +48,6 @@ public class BannerAdapter extends
 
     @Override
     public void onBindViewHolder(SliderAdapterVH viewHolder, final int position) {
-
         Banner sliderItem = mSliderItems.get(position);
 
         Glide.with(viewHolder.itemView)
@@ -57,12 +55,7 @@ public class BannerAdapter extends
                 .fitCenter()
                 .into(viewHolder.imageViewBackground);
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        viewHolder.itemView.setOnClickListener(v -> Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show());
     }
 
     @Override
