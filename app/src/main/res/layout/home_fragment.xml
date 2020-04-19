@@ -42,28 +42,35 @@
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/brand_explore"
+                android:textColor="@color/secondary"
+                android:textSize="@dimen/textH5"
+                android:textStyle="bold"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/brandList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/brand_explore"
-            android:textColor="@color/secondary"
-            android:textSize="@dimen/textH5"
-            android:textStyle="bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/brandList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="4dp" />
-
-
-        <TextView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
             android:text="@string/product_latest"
             android:textColor="@color/secondary"
@@ -74,12 +81,12 @@
             android:id="@+id/productListLatest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="4dp" />
+            android:paddingHorizontal="8dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
             android:text="@string/product_best_seller"
             android:textColor="@color/secondary"
@@ -90,7 +97,7 @@
             android:id="@+id/productListBestSeller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="4dp" />
+            android:paddingHorizontal="8dp" />
 
     </LinearLayout>
 </ScrollView>

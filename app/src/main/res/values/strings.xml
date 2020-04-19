@@ -9,4 +9,7 @@
     <string name="product_best_seller">Best Seller</string>
 
     <string name="brand_explore">Explore the <font color='#00b0ff'>BEST</font> brands</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
