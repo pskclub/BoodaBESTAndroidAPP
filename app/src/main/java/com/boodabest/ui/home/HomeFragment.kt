@@ -18,10 +18,6 @@ import kotlinx.android.synthetic.main.home_fragment.*
 
 
 class HomeFragment : BaseFragment() {
-
-    private var brandAdapter = BrandAdapter()
-    private var bannerAdapter = BannerAdapter(context)
-
     private val brandViewModel: BrandViewModel by viewModels {
         viewModelFactory
     }
@@ -47,16 +43,35 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val productLatestAdapter = ProductAdapter(appExecutors) { product, cardView ->
-            Log.w("product_click", product.title)
+        this.initProductListLatest()
+        this.initProductListBestSeller()
+        this.initBannerList()
+        this.initBrandList()
+    }
+
+    private fun initBrandList() {
+        val brandAdapter = BrandAdapter()
+        brandList.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = brandAdapter
         }
 
+        brandViewModel.items.observe(viewLifecycleOwner, Observer { brand ->
+            brandAdapter.submitList(brand.data)
+        })
+    }
+
+    private fun initBannerList() {
+        val bannerAdapter = BannerAdapter(context)
+        bannerList.setSliderAdapter(bannerAdapter)
+        bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
+            bannerAdapter.renewItems(banner.data)
+        })
+    }
+
+    private fun initProductListBestSeller() {
         val productBestSellerAdapter = ProductAdapter(appExecutors) { product, cardView ->
             Log.w("product_click", product.title)
-        }
-        productListLatest.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = productLatestAdapter
         }
 
         productListBestSeller.apply {
@@ -64,32 +79,24 @@ class HomeFragment : BaseFragment() {
             adapter = productBestSellerAdapter
         }
 
-
-        brandList.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = brandAdapter
-        }
-
-
-        bannerList.setSliderAdapter(bannerAdapter)
-
-        productLatestViewModel.items.observe(viewLifecycleOwner, Observer { product ->
-            productLatestAdapter.submitList(product.data)
-        })
-
         productBestSellerViewModel.items.observe(viewLifecycleOwner, Observer { product ->
             productBestSellerAdapter.submitList(product.data)
         })
 
-        brandViewModel.items.observe(viewLifecycleOwner, Observer { brand ->
-            brandAdapter.submitList(brand.data)
-        })
-
-        bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
-            bannerAdapter.renewItems(banner.data)
-        })
-
-
     }
 
+    private fun initProductListLatest() {
+        val productLatestAdapter = ProductAdapter(appExecutors) { product, cardView ->
+            Log.w("product_click", product.title)
+        }
+
+        productListLatest.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = productLatestAdapter
+        }
+
+        productLatestViewModel.items.observe(viewLifecycleOwner, Observer { product ->
+            productLatestAdapter.submitList(product.data)
+        })
+    }
 }
