@@ -52,7 +52,6 @@ class ProductAdapter :
                 .load(product.thumbnailURL)
                 .centerCrop()
                 .into(thumbnailURL)
-            title.text = product.title
         }
     }
 }

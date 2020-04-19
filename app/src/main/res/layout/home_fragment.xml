@@ -43,15 +43,32 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:textSize="@dimen/textH5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/brand_explore"
+            android:textColor="@color/secondary"
+            android:textSize="@dimen/textH5"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/brandList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="4dp" />
+
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/product_latest"
-            android:textColor="@color/secondary" />
+            android:textColor="@color/secondary"
+            android:textSize="@dimen/textH5"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productListLatest"
@@ -60,14 +77,14 @@
             android:paddingHorizontal="4dp" />
 
         <TextView
-            android:textSize="@dimen/textH5"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/product_best_seller"
-            android:textColor="@color/secondary" />
+            android:textColor="@color/secondary"
+            android:textSize="@dimen/textH5"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productListBestSeller"

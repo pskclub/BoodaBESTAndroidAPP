@@ -1,6 +1,7 @@
 package com.boodabest.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.boodabest.BaseFragment
 import com.boodabest.R
 import com.boodabest.repositories.banner.BannerViewModel
+import com.boodabest.repositories.brand.BrandViewModel
 import com.boodabest.repositories.product.ProductViewModel
 import com.boodabest.ui.BannerAdapter
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -18,7 +20,12 @@ import kotlinx.android.synthetic.main.home_fragment.*
 class HomeFragment : BaseFragment() {
     private var productLatestAdapter = ProductAdapter()
     private var productBestSellerAdapter = ProductAdapter()
+    private var brandAdapter = BrandAdapter()
     private var bannerAdapter = BannerAdapter(context)
+
+    private val brandViewModel: BrandViewModel by viewModels {
+        viewModelFactory
+    }
 
     private val productLatestViewModel: ProductViewModel by viewModels {
         viewModelFactory
@@ -52,6 +59,12 @@ class HomeFragment : BaseFragment() {
         }
 
 
+        brandList.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = brandAdapter
+        }
+
+
         bannerList.setSliderAdapter(bannerAdapter)
 
         productLatestViewModel.items.observe(viewLifecycleOwner, Observer { product ->
@@ -62,9 +75,15 @@ class HomeFragment : BaseFragment() {
             productBestSellerAdapter.submitList(product.data)
         })
 
+        brandViewModel.items.observe(viewLifecycleOwner, Observer { brand ->
+            brandAdapter.submitList(brand.data)
+        })
+
         bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
             bannerAdapter.renewItems(banner.data)
         })
+
+
     }
 
 }

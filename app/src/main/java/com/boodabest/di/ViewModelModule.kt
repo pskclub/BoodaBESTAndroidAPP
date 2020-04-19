@@ -3,6 +3,7 @@ package com.boodabest.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.boodabest.repositories.banner.BannerViewModel
+import com.boodabest.repositories.brand.BrandViewModel
 import com.boodabest.repositories.product.ProductViewModel
 import dagger.Binds
 import dagger.Module
@@ -22,4 +23,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BannerViewModel::class)
     abstract fun bindBannerViewModel(viewModel: BannerViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BrandViewModel::class)
+    abstract fun bindBrandViewModel(viewModel: BrandViewModel): ViewModel
 }

@@ -1,4 +1,4 @@
-package com.boodabest.repositories.banner
+package com.boodabest.repositories.brand
 
 import androidx.lifecycle.LiveData
 import com.boodabest.AppExecutors
@@ -8,7 +8,6 @@ import com.boodabest.models.PageResponse
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.Resource
-import com.boodabest.repositories.brand.BrandService
 import javax.inject.Inject
 import javax.inject.Singleton
 
