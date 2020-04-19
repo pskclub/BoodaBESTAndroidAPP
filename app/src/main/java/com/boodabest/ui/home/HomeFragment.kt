@@ -18,8 +18,7 @@ import kotlinx.android.synthetic.main.home_fragment.*
 
 
 class HomeFragment : BaseFragment() {
-    private var productLatestAdapter = ProductAdapter()
-    private var productBestSellerAdapter = ProductAdapter()
+
     private var brandAdapter = BrandAdapter()
     private var bannerAdapter = BannerAdapter(context)
 
@@ -48,6 +47,13 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val productLatestAdapter = ProductAdapter(appExecutors) { product, cardView ->
+            Log.w("product_click", product.title)
+        }
+
+        val productBestSellerAdapter = ProductAdapter(appExecutors) { product, cardView ->
+            Log.w("product_click", product.title)
+        }
         productListLatest.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = productLatestAdapter
