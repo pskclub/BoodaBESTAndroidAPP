@@ -43,9 +43,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
-            android:textSize="20sp"
+            android:textSize="@dimen/textH5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -59,7 +60,7 @@
             android:paddingHorizontal="4dp" />
 
         <TextView
-            android:textSize="20sp"
+            android:textSize="@dimen/textH5"
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
             android:layout_width="match_parent"
