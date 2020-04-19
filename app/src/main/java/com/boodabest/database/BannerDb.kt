@@ -5,13 +5,13 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [
-        Product::class
+        Banner::class
     ],
-    version = 5,
+    version = 1,
     exportSchema = false
 )
-abstract class ProductDb : RoomDatabase() {
+abstract class BannerDb : RoomDatabase() {
 
-    abstract fun productDao(): ProductDao
+    abstract fun bannerDao(): BannerDao
 
 }

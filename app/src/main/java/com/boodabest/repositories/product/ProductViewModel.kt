@@ -14,11 +14,11 @@ class ProductViewModel @Inject constructor(productRepository: ProductRepository)
 
     val item: LiveData<Resource<Product>> = _productId.switchMap { input ->
         input.ifExists { id ->
-            productRepository.findProduct(id)
+            productRepository.find(id)
         }
     }
 
-    val items: LiveData<Resource<List<Product>>> = productRepository.findProducts()
+    val items: LiveData<Resource<List<Product>>> = productRepository.get()
 
     fun setProductId(id: String) {
         val update = ProductId(id)

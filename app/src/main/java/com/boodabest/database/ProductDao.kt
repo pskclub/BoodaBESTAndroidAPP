@@ -12,12 +12,14 @@ interface ProductDao {
     abstract fun insert(vararg product: Product)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertProducts(repositories: List<Product>)
+    abstract fun inserts(items: List<Product>)
 
+    @Query("DELETE FROM products")
+    fun deleteAll()
 
     @Query("SELECT * FROM products WHERE id = :id")
-    abstract fun findProduct(id: String): LiveData<Product>
+    abstract fun find(id: String): LiveData<Product>
 
     @Query("SELECT * FROM products")
-    abstract fun findProducts(): LiveData<List<Product>>
+    abstract fun get(): LiveData<List<Product>>
 }

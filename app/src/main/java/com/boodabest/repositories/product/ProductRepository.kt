@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.boodabest.AppExecutors
 import com.boodabest.database.Product
 import com.boodabest.database.ProductDao
+import com.boodabest.models.PageResponse
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.Resource
@@ -18,13 +19,13 @@ class ProductRepository @Inject constructor(
     private val productDao: ProductDao
 ) {
 
-    fun findProduct(id: String): LiveData<Resource<Product>> {
+    fun find(id: String): LiveData<Resource<Product>> {
         return object : NetworkBoundResource<Product, Product>(appExecutors) {
             override fun createCall(): LiveData<ApiResponse<Product>> {
-                return productService.findProduct(id)
+                return productService.find(id)
             }
 
-            override fun loadFromDb() = productDao.findProduct(id)
+            override fun loadFromDb() = productDao.find(id)
 
             override fun saveCallResult(item: Product) {
                 productDao.insert(item)
@@ -34,16 +35,16 @@ class ProductRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun findProducts(): LiveData<Resource<List<Product>>> {
-        return object : NetworkBoundResource<List<Product>, List<Product>>(appExecutors) {
-            override fun createCall(): LiveData<ApiResponse<List<Product>>> {
-                return productService.findProducts()
+    fun get(): LiveData<Resource<List<Product>>> {
+        return object : NetworkBoundResource<List<Product>, PageResponse<Product>>(appExecutors) {
+            override fun createCall(): LiveData<ApiResponse<PageResponse<Product>>> {
+                return productService.get()
             }
 
-            override fun loadFromDb() = productDao.findProducts()
+            override fun loadFromDb() = productDao.get()
 
-            override fun saveCallResult(items: List<Product>) {
-                productDao.insertProducts(items)
+            override fun saveCallResult(item: PageResponse<Product>) {
+                productDao.inserts(item.items)
             }
 
             override fun shouldFetch(data: List<Product>?) = data == null || data.isEmpty()

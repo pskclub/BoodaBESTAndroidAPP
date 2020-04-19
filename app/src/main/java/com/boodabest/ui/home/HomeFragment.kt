@@ -6,26 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.boodabest.AppExecutors
 import com.boodabest.BaseFragment
 import com.boodabest.R
+import com.boodabest.repositories.banner.BannerViewModel
 import com.boodabest.repositories.product.ProductViewModel
+import com.boodabest.ui.BannerAdapter
+import com.smarteist.autoimageslider.IndicatorAnimations
+import com.smarteist.autoimageslider.SliderAnimations
 import kotlinx.android.synthetic.main.home_fragment.*
-import javax.inject.Inject
 
 
 class HomeFragment : BaseFragment() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var appExecutors: AppExecutors
-
-    private var productAdapter = ProductListAdapter()
+    private var productAdapter = ProductAdapter()
+    private var bannerAdapter = BannerAdapter()
 
     private val productViewModel: ProductViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val bannerViewModel: BannerViewModel by viewModels {
         viewModelFactory
     }
 
@@ -39,12 +39,21 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         productList.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = productAdapter
         }
-        productViewModel.items.observe(viewLifecycleOwner, Observer { items ->
-            productAdapter.submitList(items.data)
+
+
+//        bannerList.setSliderAdapter(bannerAdapter)
+
+        productViewModel.items.observe(viewLifecycleOwner, Observer { product ->
+            productAdapter.submitList(product.data)
         })
+
+//        bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
+//            bannerAdapter.submitList(banner.data)
+//            bannerList.startAutoCycle()
+//        })
     }
 
 }
