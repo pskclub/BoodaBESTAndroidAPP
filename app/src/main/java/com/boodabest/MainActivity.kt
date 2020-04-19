@@ -5,11 +5,10 @@ import android.view.Menu
 import com.boodabest.ui.home.HomeFragment
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         setSupportActionBar(findViewById(R.id.app_toolbar))
         if (savedInstanceState == null) { // initial transaction should be wrapped like this

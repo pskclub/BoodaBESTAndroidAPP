@@ -1,10 +1,9 @@
 package com.boodabest.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,10 +13,11 @@ import com.boodabest.repositories.banner.BannerViewModel
 import com.boodabest.repositories.brand.BrandViewModel
 import com.boodabest.repositories.product.ProductViewModel
 import com.boodabest.ui.BannerAdapter
+import com.boodabest.ui.product_detail.ProductDetailActivity
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(R.layout.home_fragment) {
     private val brandViewModel: BrandViewModel by viewModels {
         viewModelFactory
     }
@@ -34,12 +34,6 @@ class HomeFragment : BaseFragment() {
         viewModelFactory
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,6 +82,10 @@ class HomeFragment : BaseFragment() {
     private fun initProductListLatest() {
         val productLatestAdapter = ProductAdapter(appExecutors) { product, cardView ->
             Log.w("product_click", product.title)
+            activity?.let {
+                val intent = Intent(it, ProductDetailActivity::class.java)
+                it.startActivity(intent)
+            }
         }
 
         productListLatest.apply {
