@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.boodabest.R;
 import com.boodabest.database.Banner;
@@ -52,7 +51,6 @@ public class BannerAdapter extends SliderViewAdapter<BannerAdapter.SliderAdapter
 
         Glide.with(viewHolder.itemView)
                 .load(sliderItem.getImageURL())
-                .fitCenter()
                 .into(viewHolder.imageViewBackground);
 
 //        viewHolder.itemView.setOnClickListener(v -> Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show());

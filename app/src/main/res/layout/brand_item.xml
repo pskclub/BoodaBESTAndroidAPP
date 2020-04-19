@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="120dp"
-    android:layout_height="200dp"
+    android:layout_width="140dp"
+    android:layout_height="240dp"
     android:theme="@style/Theme.MaterialComponents.Light"
+    app:cardBackgroundColor="@color/primaryLight"
     app:cardCornerRadius="@dimen/roundedLG"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true"
-    app:cardBackgroundColor="@color/primaryLight"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
@@ -29,14 +29,26 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="8dp"
             android:gravity="bottom"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+            android:orientation="vertical">
 
             <ImageView
+                android:paddingHorizontal="16dp"
                 android:id="@+id/logoImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:gravity="center"
+                android:textSize="@dimen/textS2"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

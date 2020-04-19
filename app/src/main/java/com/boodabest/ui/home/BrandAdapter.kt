@@ -36,8 +36,10 @@ class BrandAdapter : ListAdapter<Brand, BrandAdapter.BrandViewHolder>(BrandDiffC
     class BrandViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val coverImage = view.coverImage
         private val logoImage = view.logoImage
+        private val title = view.title
 
         fun bind(brand: Brand) {
+            title.text = brand.title
             Glide
                 .with(this.itemView.context)
                 .load(brand.coverImageURL)
