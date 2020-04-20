@@ -14,7 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-var baseAPI = "https://boodabest-ecom.pams.ai/api/"
+var baseAPI = "https://shop.zeedshop.com/api/"
 
 
 @Module(includes = [ViewModelModule::class])
