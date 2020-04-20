@@ -9,7 +9,6 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setSupportActionBar(findViewById(R.id.app_toolbar))
         if (savedInstanceState == null) { // initial transaction should be wrapped like this
             supportFragmentManager.beginTransaction()

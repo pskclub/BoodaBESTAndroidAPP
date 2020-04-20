@@ -1,40 +1,24 @@
 package com.boodabest.ui.home
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boodabest.BaseFragment
+import com.boodabest.DetailActivity
 import com.boodabest.R
+import com.boodabest.database.Brand
+import com.boodabest.database.Product
 import com.boodabest.repositories.banner.BannerViewModel
 import com.boodabest.repositories.brand.BrandViewModel
 import com.boodabest.repositories.product.ProductViewModel
 import com.boodabest.ui.BannerAdapter
-import com.boodabest.DetailActivity
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
 class HomeFragment : BaseFragment(R.layout.home_fragment) {
-    private val brandViewModel: BrandViewModel by viewModels {
-        viewModelFactory
-    }
-
-    private val productLatestViewModel: ProductViewModel by viewModels {
-        viewModelFactory
-    }
-
-    private val productBestSellerViewModel: ProductViewModel by viewModels {
-        viewModelFactory
-    }
-
-    private val bannerViewModel: BannerViewModel by viewModels {
-        viewModelFactory
-    }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.initProductListLatest()
@@ -43,8 +27,24 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
         this.initBrandList()
     }
 
+
+    private fun initBannerList() {
+        val bannerViewModel: BannerViewModel by viewModels {
+            viewModelFactory
+        }
+
+        val bannerAdapter = BannerAdapter(context)
+        bannerList.setSliderAdapter(bannerAdapter)
+        bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
+            bannerAdapter.renewItems(banner.data)
+        })
+    }
+
     private fun initBrandList() {
-        val brandAdapter = BrandAdapter()
+        val brandViewModel: BrandViewModel by viewModels {
+            viewModelFactory
+        }
+        val brandAdapter = BrandAdapter(onClickBrand())
         brandList.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = brandAdapter
@@ -55,18 +55,13 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
         })
     }
 
-    private fun initBannerList() {
-        val bannerAdapter = BannerAdapter(context)
-        bannerList.setSliderAdapter(bannerAdapter)
-        bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
-            bannerAdapter.renewItems(banner.data)
-        })
-    }
 
     private fun initProductListBestSeller() {
-        val productBestSellerAdapter = ProductAdapter(appExecutors) { product, cardView ->
-            Log.w("product_click", product.title)
+        val productBestSellerViewModel: ProductViewModel by viewModels {
+            viewModelFactory
         }
+
+        val productBestSellerAdapter = ProductAdapter(appExecutors, onClickProduct())
 
         productListBestSeller.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -80,13 +75,11 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
     }
 
     private fun initProductListLatest() {
-        val productLatestAdapter = ProductAdapter(appExecutors) { product, cardView ->
-            Log.w("product_click", product.title)
-            activity?.let {
-                val intent = Intent(it, DetailActivity::class.java)
-                it.startActivity(intent)
-            }
+        val productLatestViewModel: ProductViewModel by viewModels {
+            viewModelFactory
         }
+
+        val productLatestAdapter = ProductAdapter(appExecutors, onClickProduct())
 
         productListLatest.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -96,5 +89,33 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
         productLatestViewModel.items.observe(viewLifecycleOwner, Observer { product ->
             productLatestAdapter.submitList(product.data)
         })
+    }
+
+    private fun onClickProduct(): (Product, CardView) -> Unit {
+        return { product, _ ->
+            activity?.let {
+                it.startActivity(context?.let { it1 ->
+                    DetailActivity.newInstance(
+                        it1,
+                        DetailActivity.PRODUCT_TYPE,
+                        product.id
+                    )
+                })
+            }
+        }
+    }
+
+    private fun onClickBrand(): (Brand, CardView) -> Unit {
+        return { product, _ ->
+            activity?.let {
+                it.startActivity(context?.let { it1 ->
+                    DetailActivity.newInstance(
+                        it1,
+                        DetailActivity.BRAND_TYPE,
+                        product.id
+                    )
+                })
+            }
+        }
     }
 }
