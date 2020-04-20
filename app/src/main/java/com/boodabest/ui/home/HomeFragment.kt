@@ -13,7 +13,7 @@ import com.boodabest.repositories.banner.BannerViewModel
 import com.boodabest.repositories.brand.BrandViewModel
 import com.boodabest.repositories.product.ProductViewModel
 import com.boodabest.ui.BannerAdapter
-import com.boodabest.ui.product_detail.ProductDetailActivity
+import com.boodabest.DetailActivity
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
@@ -83,7 +83,7 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
         val productLatestAdapter = ProductAdapter(appExecutors) { product, cardView ->
             Log.w("product_click", product.title)
             activity?.let {
-                val intent = Intent(it, ProductDetailActivity::class.java)
+                val intent = Intent(it, DetailActivity::class.java)
                 it.startActivity(intent)
             }
         }
