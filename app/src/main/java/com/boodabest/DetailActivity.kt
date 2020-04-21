@@ -15,10 +15,9 @@ class DetailActivity : BaseActivity(R.layout.activity_detail) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val extras = intent.extras;
-        if (extras != null) {
-            type = extras.getString(TYPE)
-            id = extras.getString(ID)
+        intent.extras?.let {
+            type = it.getString(TYPE)
+            id = it.getString(ID)
 
             Log.w("type", type)
             Log.w("id", id)
@@ -26,8 +25,8 @@ class DetailActivity : BaseActivity(R.layout.activity_detail) {
     }
 
     companion object {
-        val PRODUCT_TYPE = "product"
-        val BRAND_TYPE = "brand"
+        const val PRODUCT_TYPE = "product"
+        const val BRAND_TYPE = "brand"
 
         fun newInstance(context: Context, type: String, id: String) =
             Intent(context, DetailActivity::class.java).apply {

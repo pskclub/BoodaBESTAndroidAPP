@@ -44,7 +44,7 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
         val brandViewModel: BrandViewModel by viewModels {
             viewModelFactory
         }
-        val brandAdapter = BrandAdapter(onClickBrand())
+        val brandAdapter = BrandAdapter(onBrandClick())
         brandList.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = brandAdapter
@@ -61,7 +61,7 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
             viewModelFactory
         }
 
-        val productBestSellerAdapter = ProductAdapter(appExecutors, onClickProduct())
+        val productBestSellerAdapter = ProductAdapter(appExecutors, onProductClick())
 
         productListBestSeller.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -79,7 +79,7 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
             viewModelFactory
         }
 
-        val productLatestAdapter = ProductAdapter(appExecutors, onClickProduct())
+        val productLatestAdapter = ProductAdapter(appExecutors, onProductClick())
 
         productListLatest.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -91,7 +91,7 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
         })
     }
 
-    private fun onClickProduct(): (Product, CardView) -> Unit {
+    private fun onProductClick(): (Product, CardView) -> Unit {
         return { product, _ ->
             activity?.let {
                 it.startActivity(context?.let { it1 ->
@@ -105,14 +105,14 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
         }
     }
 
-    private fun onClickBrand(): (Brand, CardView) -> Unit {
-        return { product, _ ->
+    private fun onBrandClick(): (Brand, CardView) -> Unit {
+        return { brand, _ ->
             activity?.let {
                 it.startActivity(context?.let { it1 ->
                     DetailActivity.newInstance(
                         it1,
                         DetailActivity.BRAND_TYPE,
-                        product.id
+                        brand.id
                     )
                 })
             }
