@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken
 data class Product(
     @field:SerializedName("product_id") val id: String,
     @field:SerializedName("title") val title: String,
+    @field:SerializedName("description") val description: String?,
     @field:SerializedName("thumbnail_url") val thumbnailURL: String,
     @field:SerializedName("price") val price: String,
     @field:SerializedName("price_promotion") val pricePromotion: String,

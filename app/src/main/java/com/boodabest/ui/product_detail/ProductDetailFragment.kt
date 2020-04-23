@@ -48,6 +48,8 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
             if (product.data !== null) {
                 txtTitle.text = product.data.title
                 txtPrice.text = product.data.price
+                txtDesc.text = product.data.description?.toSpanned() ?: ""
+                txtBrandNavDesc.text = product.data.title
                 Glide
                     .with(this)
                     .load(product.data.header?.coverImageURL)
@@ -57,6 +59,11 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
                     .with(this)
                     .load(product.data.brand.thumbnailURL)
                     .into(imgBrandLogo)
+
+                Glide
+                    .with(this)
+                    .load(product.data.brand.thumbnailURL)
+                    .into(imgBrandLogoNav)
 
                 coverContainer.setBackgroundColor(Color.parseColor(product.data.brand.backgroundColor))
                 txtHeaderTitle.apply {
