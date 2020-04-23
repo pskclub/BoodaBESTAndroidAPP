@@ -24,9 +24,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="?attr/actionBarSize" />
-
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

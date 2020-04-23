@@ -49,7 +49,8 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
                 txtTitle.text = product.data.title
                 txtPrice.text = product.data.price
                 txtDesc.text = product.data.description?.toSpanned() ?: ""
-                txtBrandNavDesc.text = product.data.title
+                txtBrandNavDesc.text =
+                    getString(R.string.product_brand_nav, product.data.brand.title)
                 Glide
                     .with(this)
                     .load(product.data.header?.coverImageURL)
