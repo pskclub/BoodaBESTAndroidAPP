@@ -1,7 +1,6 @@
 package com.boodabest.ui;
 
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,6 @@ import java.util.List;
 public class BannerAdapter extends SliderViewAdapter<BannerAdapter.SliderAdapterVH> {
 
     private List<Banner> mSliderItems = new ArrayList<>();
-
-    public BannerAdapter(Context context) {
-    }
 
     public void renewItems(List<Banner> sliderItems) {
         this.mSliderItems = sliderItems;

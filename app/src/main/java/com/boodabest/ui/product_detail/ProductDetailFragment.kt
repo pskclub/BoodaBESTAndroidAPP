@@ -79,7 +79,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
                     setTextColor(Color.parseColor(product.data.header?.titleColor))
                 }
 
-                val productThumbnailAdapter = ProductThumbnailAdapter(context)
+                val productThumbnailAdapter = ProductThumbnailAdapter()
                 productImageSlider.setSliderAdapter(productThumbnailAdapter)
                 productThumbnailAdapter.renewItems(product.data.galleries)
             }

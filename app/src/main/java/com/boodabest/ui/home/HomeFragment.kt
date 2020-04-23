@@ -33,7 +33,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             viewModelFactory
         }
 
-        val bannerAdapter = BannerAdapter(context)
+        val bannerAdapter = BannerAdapter()
         bannerList.setSliderAdapter(bannerAdapter)
         bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
             bannerAdapter.renewItems(banner.data)

@@ -1,7 +1,6 @@
 package com.boodabest.ui.product_detail;
 
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,6 @@ public class ProductThumbnailAdapter extends SliderViewAdapter<ProductThumbnailA
 
     private List<Product.Gallery> mSliderItems = new ArrayList<>();
 
-    public ProductThumbnailAdapter(Context context) {
-    }
 
     public void renewItems(List<Product.Gallery> sliderItems) {
         this.mSliderItems = sliderItems;
