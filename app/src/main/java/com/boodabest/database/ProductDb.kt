@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
     entities = [
         Product::class
     ],
-    version = 5,
+    version = 7,
     exportSchema = false
 )
 abstract class ProductDb : RoomDatabase() {

@@ -17,11 +17,9 @@ import java.util.List;
 
 public class BannerAdapter extends SliderViewAdapter<BannerAdapter.SliderAdapterVH> {
 
-    private Context context;
     private List<Banner> mSliderItems = new ArrayList<>();
 
     public BannerAdapter(Context context) {
-        this.context = context;
     }
 
     public void renewItems(List<Banner> sliderItems) {
@@ -52,8 +50,6 @@ public class BannerAdapter extends SliderViewAdapter<BannerAdapter.SliderAdapter
         Glide.with(viewHolder.itemView)
                 .load(sliderItem.getImageURL())
                 .into(viewHolder.imageViewBackground);
-
-//        viewHolder.itemView.setOnClickListener(v -> Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show());
     }
 
     @Override

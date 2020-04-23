@@ -15,16 +15,16 @@ import com.boodabest.repositories.banner.BannerViewModel
 import com.boodabest.repositories.brand.BrandViewModel
 import com.boodabest.repositories.product.ProductViewModel
 import com.boodabest.ui.BannerAdapter
-import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : BaseFragment(R.layout.home_fragment) {
+class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.initProductListLatest()
-        this.initProductListBestSeller()
-        this.initBannerList()
-        this.initBrandList()
+        initProductListLatest()
+        initProductListBestSeller()
+        initBannerList()
+        initBrandList()
     }
 
 
@@ -98,7 +98,8 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
                     DetailActivity.newInstance(
                         it1,
                         DetailActivity.PRODUCT_TYPE,
-                        product.id
+                        product.id,
+                        product.title
                     )
                 })
             }
@@ -112,7 +113,8 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
                     DetailActivity.newInstance(
                         it1,
                         DetailActivity.BRAND_TYPE,
-                        brand.id
+                        brand.id,
+                        brand.title
                     )
                 })
             }
