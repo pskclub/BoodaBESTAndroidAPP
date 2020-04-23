@@ -46,6 +46,8 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         productViewModel.setProductId(productId!!)
         productViewModel.item.observe(viewLifecycleOwner, Observer { product ->
             if (product.data !== null) {
+                txtTitle.text = product.data.title
+                txtPrice.text = product.data.price
                 Glide
                     .with(this)
                     .load(product.data.header?.coverImageURL)
