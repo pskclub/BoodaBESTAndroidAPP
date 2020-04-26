@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.boodabest.BaseFragment
@@ -19,10 +20,19 @@ import kotlinx.android.synthetic.main.fragment_product_single_cover.*
 import kotlinx.android.synthetic.main.fragment_product_single_detail.*
 import kotlinx.android.synthetic.main.fragment_product_single_options_dialog.*
 
+
 private const val PRODUCT_ID = "product_id"
 
 class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
+    private val KEY_IS_SHOW_DIALOG = "isShowDialog"
+    private var isShowDialog: Boolean = false
     private var productId: String? = null
+
+
+    override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        restoreInstanceState(savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,10 +54,13 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
     }
 
     private fun initProduct() {
+        if (isShowDialog) {
+            optionsDialog.visibility = View.VISIBLE
+        }
+
         val productViewModel: ProductViewModel by viewModels {
             viewModelFactory
         }
-
 
         productViewModel.setProductId(productId!!)
         productViewModel.item.observe(viewLifecycleOwner, Observer { product ->
@@ -106,14 +119,17 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
 
 
     private fun onBtnCloseClick(it: View) {
+        isShowDialog = false
         optionsDialog.visibility = View.GONE
     }
 
     private fun onBtnAddToCartClick(it: View) {
+        isShowDialog = true
         optionsDialog.visibility = View.VISIBLE
     }
 
     private fun onBtnBuyNowClick(it: View) {
+        isShowDialog = true
         optionsDialog.visibility = View.VISIBLE
     }
 
@@ -126,5 +142,14 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
             .load(product.thumbnailURL)
             .into(ivDialogProductThumbnail)
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(KEY_IS_SHOW_DIALOG, isShowDialog)
+    }
+
+    private fun restoreInstanceState(bundle: Bundle?) {
+        isShowDialog = bundle?.getBoolean(KEY_IS_SHOW_DIALOG) ?: false
     }
 }
