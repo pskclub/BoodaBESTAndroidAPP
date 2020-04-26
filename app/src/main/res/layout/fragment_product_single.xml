@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryLight">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryLight"
+            android:orientation="vertical"
+            tools:context=".ui.product_single.ProductDetailFragment">
+
+            <ImageView
+                android:id="@+id/imgCover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+
+            <include layout="@layout/fragment_product_single_cover" />
+
+            <include layout="@layout/fragment_product_single_detail" />
+
+            <include layout="@layout/fragment_product_single_brand_nav" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/fragment_product_single_action_group" />
+    <include layout="@layout/fragment_product_single_options_dialog" />
+</RelativeLayout>

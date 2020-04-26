@@ -1,4 +1,4 @@
-package com.boodabest.ui.product_detail;
+package com.boodabest.ui.product_single;
 
 
 import android.view.LayoutInflater;

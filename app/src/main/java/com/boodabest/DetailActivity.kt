@@ -3,7 +3,7 @@ package com.boodabest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.boodabest.ui.product_detail.ProductDetailFragment
+import com.boodabest.ui.product_single.ProductSingleFragment
 
 private const val TYPE = "type"
 private const val ID = "id"
@@ -53,7 +53,7 @@ class DetailActivity : BaseActivity(R.layout.activity_detail) {
 
     private fun initProduct() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, ProductDetailFragment.newInstance(id!!))
+            .replace(R.id.container, ProductSingleFragment.newInstance(id!!))
             .commitAllowingStateLoss()
     }
 
