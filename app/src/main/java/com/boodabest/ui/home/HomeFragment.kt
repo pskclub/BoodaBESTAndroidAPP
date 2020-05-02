@@ -6,9 +6,9 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.boodabest.core.BaseFragment
 import com.boodabest.DetailActivity
 import com.boodabest.R
+import com.boodabest.core.BaseFragment
 import com.boodabest.database.Brand
 import com.boodabest.database.Product
 import com.boodabest.repositories.banner.BannerViewModel
@@ -26,7 +26,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        appViewModel.updateTitle(getString(R.string.app_name))
+        app.updateTitle(getString(R.string.app_name))
 
         initProductListLatest()
         initProductListBestSeller()
@@ -100,31 +100,28 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun onProductClick(): (Product, CardView) -> Unit {
         return { product, _ ->
-            activity?.let {
-                it.startActivity(context?.let { it1 ->
-                    DetailActivity.newInstance(
-                        it1,
-                        DetailActivity.PRODUCT_TYPE,
-                        product.id,
-                        product.title
-                    )
-                })
-            }
+            requireActivity().startActivity(
+                DetailActivity.newInstance(
+                    requireContext(),
+                    DetailActivity.PRODUCT_TYPE,
+                    product.id,
+                    product.title
+                )
+            )
+
         }
     }
 
     private fun onBrandClick(): (Brand, CardView) -> Unit {
         return { brand, _ ->
-            activity?.let {
-                it.startActivity(context?.let { it1 ->
-                    DetailActivity.newInstance(
-                        it1,
-                        DetailActivity.BRAND_TYPE,
-                        brand.id,
-                        brand.title
-                    )
-                })
-            }
+            requireActivity().startActivity(
+                DetailActivity.newInstance(
+                    requireContext(),
+                    DetailActivity.BRAND_TYPE,
+                    brand.id,
+                    brand.title
+                )
+            )
         }
     }
 }

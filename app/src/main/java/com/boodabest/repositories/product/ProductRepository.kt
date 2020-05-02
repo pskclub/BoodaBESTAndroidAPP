@@ -8,6 +8,7 @@ import com.boodabest.models.PageMeta
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.Resource
+import com.boodabest.services.ProductService
 import javax.inject.Inject
 import javax.inject.Singleton
 

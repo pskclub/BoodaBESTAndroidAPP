@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.boodabest.di.Injectable
 import com.boodabest.repositories.AppViewModel
+import com.boodabest.repositories.AuthViewModel
 import javax.inject.Inject
 
 abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId),
@@ -17,12 +19,16 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentL
     @Inject
     lateinit var appExecutors: AppExecutors
 
-    protected lateinit var appViewModel: AppViewModel
+    protected lateinit var app: AppViewModel
+    protected val auth: AuthViewModel by viewModels {
+        viewModelFactory
+    }
+
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.run {
-            appViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
+            app = ViewModelProvider(this).get(AppViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
     }
 }

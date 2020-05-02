@@ -1,4 +1,4 @@
-package com.boodabest.repositories.product
+package com.boodabest.services
 
 import androidx.lifecycle.LiveData
 import com.boodabest.database.Product

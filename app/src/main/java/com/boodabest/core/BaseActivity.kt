@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.boodabest.repositories.AppViewModel
+import com.boodabest.repositories.AuthViewModel
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
@@ -20,6 +21,10 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
     @Inject
     lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
+    protected val auth: AuthViewModel by viewModels {
+        viewModelFactory
+    }
+
     override fun supportFragmentInjector() = fragmentDispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,11 +33,11 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
     }
 
     private fun onReceiveAppData() {
-        val appViewModel: AppViewModel by viewModels {
+        val app: AppViewModel by viewModels {
             viewModelFactory
         }
 
-        appViewModel.title.observe(this, Observer {
+        app.title.observe(this, Observer {
             supportActionBar?.title = it
         })
     }

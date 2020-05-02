@@ -1,4 +1,4 @@
-package com.boodabest.repositories.banner
+package com.boodabest.services
 
 import androidx.lifecycle.LiveData
 import com.boodabest.database.Banner
