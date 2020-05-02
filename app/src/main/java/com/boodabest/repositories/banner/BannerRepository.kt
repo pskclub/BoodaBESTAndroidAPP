@@ -1,10 +1,10 @@
 package com.boodabest.repositories.banner
 
 import androidx.lifecycle.LiveData
-import com.boodabest.AppExecutors
+import com.boodabest.core.AppExecutors
 import com.boodabest.database.Banner
 import com.boodabest.database.BannerDao
-import com.boodabest.models.PageResponse
+import com.boodabest.models.PageMeta
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.Resource
@@ -21,14 +21,14 @@ class BannerRepository @Inject constructor(
 
 
     fun get(): LiveData<Resource<List<Banner>>> {
-        return object : NetworkBoundResource<List<Banner>, PageResponse<Banner>>(appExecutors) {
-            override fun createCall(): LiveData<ApiResponse<PageResponse<Banner>>> {
+        return object : NetworkBoundResource<List<Banner>, PageMeta<Banner>>(appExecutors) {
+            override fun createCall(): LiveData<ApiResponse<PageMeta<Banner>>> {
                 return bannerService.get()
             }
 
             override fun loadFromDb() = bannerDao.get()
 
-            override fun saveCallResult(item: PageResponse<Banner>) {
+            override fun saveCallResult(item: PageMeta<Banner>) {
                 bannerDao.inserts(item.items)
             }
 

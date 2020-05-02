@@ -1,10 +1,10 @@
 package com.boodabest.repositories.product
 
 import androidx.lifecycle.LiveData
-import com.boodabest.AppExecutors
+import com.boodabest.core.AppExecutors
 import com.boodabest.database.Product
 import com.boodabest.database.ProductDao
-import com.boodabest.models.PageResponse
+import com.boodabest.models.PageMeta
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.Resource
@@ -36,14 +36,14 @@ class ProductRepository @Inject constructor(
     }
 
     fun get(): LiveData<Resource<List<Product>>> {
-        return object : NetworkBoundResource<List<Product>, PageResponse<Product>>(appExecutors) {
-            override fun createCall(): LiveData<ApiResponse<PageResponse<Product>>> {
+        return object : NetworkBoundResource<List<Product>, PageMeta<Product>>(appExecutors) {
+            override fun createCall(): LiveData<ApiResponse<PageMeta<Product>>> {
                 return productService.get()
             }
 
             override fun loadFromDb() = productDao.get()
 
-            override fun saveCallResult(item: PageResponse<Product>) {
+            override fun saveCallResult(item: PageMeta<Product>) {
                 productDao.inserts(item.items)
             }
 

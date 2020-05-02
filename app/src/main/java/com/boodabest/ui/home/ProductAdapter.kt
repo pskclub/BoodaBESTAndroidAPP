@@ -7,7 +7,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.boodabest.AppExecutors
+import com.boodabest.core.AppExecutors
 import com.boodabest.R
 import com.boodabest.database.Product
 import com.bumptech.glide.Glide

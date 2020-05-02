@@ -1,4 +1,4 @@
-package com.boodabest
+package com.boodabest.core
 
 
 import android.os.Handler

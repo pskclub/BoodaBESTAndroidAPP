@@ -7,7 +7,7 @@ import android.view.View
 import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.boodabest.BaseFragment
+import com.boodabest.core.BaseFragment
 import com.boodabest.R
 import com.boodabest.database.Product
 import com.boodabest.repositories.product.ProductViewModel
@@ -45,7 +45,6 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
     }
 
     companion object {
-        @JvmStatic
         fun newInstance(productId: String) =
             ProductSingleFragment().apply {
                 arguments = Bundle().apply {
@@ -156,9 +155,10 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         outState.putBoolean(KEY_IS_SHOW_DIALOG, isShowDialog)
+        super.onSaveInstanceState(outState)
     }
+
 
     private fun restoreInstanceState(bundle: Bundle?) {
         isShowDialog = bundle?.getBoolean(KEY_IS_SHOW_DIALOG) ?: false

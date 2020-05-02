@@ -3,6 +3,7 @@ package com.boodabest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.boodabest.core.BaseActivity
 import com.boodabest.ui.product_single.ProductSingleFragment
 
 private const val TYPE = "type"

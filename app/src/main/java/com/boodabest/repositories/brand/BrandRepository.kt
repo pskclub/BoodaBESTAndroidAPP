@@ -1,10 +1,10 @@
 package com.boodabest.repositories.brand
 
 import androidx.lifecycle.LiveData
-import com.boodabest.AppExecutors
+import com.boodabest.core.AppExecutors
 import com.boodabest.database.Brand
 import com.boodabest.database.BrandDao
-import com.boodabest.models.PageResponse
+import com.boodabest.models.PageMeta
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.Resource
@@ -21,14 +21,14 @@ class BrandRepository @Inject constructor(
 
 
     fun get(): LiveData<Resource<List<Brand>>> {
-        return object : NetworkBoundResource<List<Brand>, PageResponse<Brand>>(appExecutors) {
-            override fun createCall(): LiveData<ApiResponse<PageResponse<Brand>>> {
+        return object : NetworkBoundResource<List<Brand>, PageMeta<Brand>>(appExecutors) {
+            override fun createCall(): LiveData<ApiResponse<PageMeta<Brand>>> {
                 return brandService.get()
             }
 
             override fun loadFromDb() = brandDao.get()
 
-            override fun saveCallResult(item: PageResponse<Brand>) {
+            override fun saveCallResult(item: PageMeta<Brand>) {
                 brandDao.inserts(item.items)
             }
 

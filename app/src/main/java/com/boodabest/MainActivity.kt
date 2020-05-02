@@ -3,6 +3,7 @@ package com.boodabest
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.boodabest.core.BaseActivity
 import com.boodabest.ui.account.AccountOverviewFragment
 import com.boodabest.ui.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*

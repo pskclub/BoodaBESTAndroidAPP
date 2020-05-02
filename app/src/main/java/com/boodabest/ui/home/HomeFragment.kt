@@ -6,7 +6,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.boodabest.BaseFragment
+import com.boodabest.core.BaseFragment
 import com.boodabest.DetailActivity
 import com.boodabest.R
 import com.boodabest.database.Brand

@@ -2,7 +2,7 @@ package com.boodabest.ui.account
 
 import android.os.Bundle
 import android.view.View
-import com.boodabest.BaseFragment
+import com.boodabest.core.BaseFragment
 import com.boodabest.R
 
 class AccountOverviewFragment : BaseFragment(R.layout.fragment_account_overview) {
