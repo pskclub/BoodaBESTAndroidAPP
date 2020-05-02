@@ -19,6 +19,11 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
+    companion object {
+        @JvmStatic
+        fun newInstance() = HomeFragment().apply {}
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initProductListLatest()

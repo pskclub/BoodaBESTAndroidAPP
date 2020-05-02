@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item_home"
+        android:id="@+id/nav_item_home"
         android:icon="@mipmap/home"
         android:state_checked="true"
         android:title="@string/nav_bottom_home" />
     <item
-        android:id="@+id/item_cart"
+        android:id="@+id/nav_item_cart"
         android:icon="@mipmap/cart"
         android:title="@string/nav_bottom_cart" />
     <item
-        android:id="@+id/item_notification"
+        android:id="@+id/nav_item_notification"
         android:icon="@mipmap/notification"
         android:title="@string/nav_bottom_notification" />
     <item
-        android:id="@+id/item_account"
+        android:id="@+id/nav_item_account"
         android:icon="@mipmap/account"
         android:title="@string/nav_bottom_account" />
 </menu>

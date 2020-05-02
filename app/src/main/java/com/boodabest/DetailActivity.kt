@@ -14,9 +14,12 @@ class DetailActivity : BaseActivity(R.layout.activity_detail) {
     private var type: String? = null
     private var id: String? = null
     private var title: String? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(findViewById(R.id.app_toolbar))
+
 
         intent.extras?.let {
             type = it.getString(TYPE)

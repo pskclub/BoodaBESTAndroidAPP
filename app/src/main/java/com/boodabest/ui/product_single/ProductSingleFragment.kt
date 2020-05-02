@@ -22,9 +22,10 @@ import kotlinx.android.synthetic.main.fragment_product_single_options_dialog.*
 
 
 private const val PRODUCT_ID = "product_id"
+private const val KEY_IS_SHOW_DIALOG = "isShowDialog"
+
 
 class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
-    private val KEY_IS_SHOW_DIALOG = "isShowDialog"
     private var isShowDialog: Boolean = false
     private var productId: String? = null
 
@@ -66,6 +67,7 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
         productViewModel.item.observe(viewLifecycleOwner, Observer { product ->
             if (product.data !== null) {
                 initProductDialog(product.data)
+                activityViewModel.updateTitle(product.data.title)
                 txtTitle.text = product.data.title
                 txtPrice.text = product.data.price
                 txtDesc.text = product.data.description?.toSpanned() ?: ""
@@ -113,8 +115,17 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
                 btnClose.setOnClickListener {
                     onBtnCloseClick(it)
                 }
+
+                cvBrand.setOnClickListener {
+                    onBtnBrandNavClick(it)
+                }
             }
         })
+    }
+
+
+    private fun onBtnBrandNavClick(it: View) {
+        // TODO : go brand fragment
     }
 
 

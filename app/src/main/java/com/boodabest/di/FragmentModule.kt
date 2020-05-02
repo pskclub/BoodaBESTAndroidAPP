@@ -1,5 +1,6 @@
 package com.boodabest.di
 
+import com.boodabest.ui.account.AccountOverviewFragment
 import com.boodabest.ui.home.HomeFragment
 import com.boodabest.ui.product_single.ProductSingleFragment
 import dagger.Module
@@ -14,4 +15,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeProductDetailFragment(): ProductSingleFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeAccountOverviewFragment(): AccountOverviewFragment
 }
