@@ -22,17 +22,16 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         if (savedInstanceState == null) { // initial transaction should be wrapped like this
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, HomeFragment.newInstance())
-                .commitAllowingStateLoss()
+                .commit()
         }
     }
 
     private fun onBottomNavClick(it: MenuItem): Boolean {
         when (it.itemId) {
             R.id.nav_item_home -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container, HomeFragment.newInstance())
-                    .commit()
+                while (supportFragmentManager.backStackEntryCount > 0) {
+                    supportFragmentManager.popBackStackImmediate()
+                }
             }
 
             R.id.nav_item_cart -> {

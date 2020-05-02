@@ -1,14 +1,18 @@
 package com.boodabest.core
 
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.boodabest.R
 import com.boodabest.di.Injectable
 import com.boodabest.repositories.AppViewModel
 import com.boodabest.repositories.AuthViewModel
+import com.boodabest.ui.auth.LoginFragment
 import javax.inject.Inject
 
 abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId),
