@@ -7,5 +7,4 @@ data class PageMeta<T>(
     @SerializedName("next") val nextPage: String = "",
     @SerializedName("current") val currentPage: String = "",
     @SerializedName("items") val items: List<T>
-) {
-}
+)
