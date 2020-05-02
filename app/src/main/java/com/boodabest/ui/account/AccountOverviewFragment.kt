@@ -13,7 +13,7 @@ class AccountOverviewFragment : BaseFragment(R.layout.fragment_account_overview)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activityViewModel.updateTitle("account")
+        appViewModel.updateTitle(getString(R.string.menu_account))
     }
 
 }

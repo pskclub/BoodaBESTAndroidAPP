@@ -2,7 +2,7 @@ package com.boodabest.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.boodabest.BaseActivityViewModel
+import com.boodabest.repositories.AppViewModel
 import com.boodabest.repositories.banner.BannerViewModel
 import com.boodabest.repositories.brand.BrandViewModel
 import com.boodabest.repositories.product.ProductViewModel
@@ -33,6 +33,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(BaseActivityViewModel::class)
-    abstract fun bindBaseActivityViewModel(viewModel: BaseActivityViewModel): ViewModel
+    @ViewModelKey(AppViewModel::class)
+    abstract fun bindAppViewModel(viewModel: AppViewModel): ViewModel
 }

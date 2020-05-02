@@ -67,7 +67,7 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
         productViewModel.item.observe(viewLifecycleOwner, Observer { product ->
             if (product.data !== null) {
                 initProductDialog(product.data)
-                activityViewModel.updateTitle(product.data.title)
+                appViewModel.updateTitle(product.data.title)
                 txtTitle.text = product.data.title
                 txtPrice.text = product.data.price
                 txtDesc.text = product.data.description?.toSpanned() ?: ""

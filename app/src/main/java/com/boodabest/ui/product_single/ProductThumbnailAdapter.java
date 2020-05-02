@@ -46,6 +46,7 @@ public class ProductThumbnailAdapter extends SliderViewAdapter<ProductThumbnailA
 
         Glide.with(viewHolder.itemView)
                 .load(sliderItem.getImageURL())
+                .placeholder(R.drawable.product_thumbnail_placeholder)
                 .into(viewHolder.imageViewBackground);
 
     }

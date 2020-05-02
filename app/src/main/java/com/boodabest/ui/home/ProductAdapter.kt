@@ -57,6 +57,7 @@ class ProductAdapter(
             Glide
                 .with(this.itemView.context)
                 .load(product.thumbnailURL)
+                .placeholder(R.drawable.product_thumbnail_placeholder)
                 .into(thumbnailURL)
 
             this.itemView.setOnClickListener {

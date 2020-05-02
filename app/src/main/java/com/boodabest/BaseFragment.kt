@@ -6,6 +6,7 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.boodabest.di.Injectable
+import com.boodabest.repositories.AppViewModel
 import javax.inject.Inject
 
 abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId),
@@ -16,12 +17,12 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentL
     @Inject
     lateinit var appExecutors: AppExecutors
 
-    protected lateinit var activityViewModel: BaseActivityViewModel
+    protected lateinit var appViewModel: AppViewModel
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.run {
-            activityViewModel = ViewModelProvider(this).get(BaseActivityViewModel::class.java)
+            appViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
     }
 }

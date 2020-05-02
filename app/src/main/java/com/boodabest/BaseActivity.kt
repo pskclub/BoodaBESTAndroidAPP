@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.boodabest.repositories.AppViewModel
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
@@ -23,15 +24,15 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.onReceiveMetaData()
+        this.onReceiveAppData()
     }
 
-    private fun onReceiveMetaData() {
-        val activityViewModel: BaseActivityViewModel by viewModels {
+    private fun onReceiveAppData() {
+        val appViewModel: AppViewModel by viewModels {
             viewModelFactory
         }
 
-        activityViewModel.title.observe(this, Observer {
+        appViewModel.title.observe(this, Observer {
             supportActionBar?.title = it
         })
     }

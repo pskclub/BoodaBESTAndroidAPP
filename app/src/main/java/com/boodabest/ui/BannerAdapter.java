@@ -45,6 +45,7 @@ public class BannerAdapter extends SliderViewAdapter<BannerAdapter.SliderAdapter
 
         Glide.with(viewHolder.itemView)
                 .load(sliderItem.getImageURL())
+                .placeholder(R.drawable.banner_placeholder)
                 .into(viewHolder.imageViewBackground);
     }
 
@@ -67,39 +68,3 @@ public class BannerAdapter extends SliderViewAdapter<BannerAdapter.SliderAdapter
     }
 
 }
-/*
-
-class BannerAdapter :
-    ListAdapter<Banner, BannerAdapter.BannerViewHolder>(BannerDiffCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
-        return BannerViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.banner_item, parent, false)
-        )
-    }
-
-    override fun onBindViewHolder(holder: BannerViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
-    class BannerDiffCallback : DiffUtil.ItemCallback<Banner>() {
-        override fun areItemsTheSame(oldItem: Banner, newItem: Banner): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Banner, newItem: Banner): Boolean {
-            return oldItem.imageURL == newItem.imageURL
-        }
-    }
-
-    class BannerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val image = view.image
-
-        fun bind(banner: Banner) {
-            Glide
-                .with(this.itemView.context)
-                .load(banner.imageURL)
-                .centerCrop()
-                .into(image);
-        }
-    }
-}*/

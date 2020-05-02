@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">ZeedSHOP</string>
+
+    <string name="menu_account">Account Overview</string>
+    <string name="menu_login">Login</string>
+
+
     <string name="nav_bottom_home">Home</string>
     <string name="nav_bottom_notification">Notification</string>
     <string name="nav_bottom_cart">Cart</string>
