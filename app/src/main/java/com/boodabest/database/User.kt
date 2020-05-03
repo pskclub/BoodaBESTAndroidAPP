@@ -17,7 +17,11 @@ data class User(
     @field:SerializedName("gender") val gender: String,
     @field:SerializedName("registered_by") val registeredBy: String,
     @field:SerializedName("member_card_no") val memberCardNo: String,
-    @field:SerializedName("member_point") val memberPoint: Number,
+    @field:SerializedName("member_point") val memberPoint: Int,
     @field:SerializedName("notification_on") val isNotificationOn: Boolean,
-    @field:SerializedName("background_color") val bgColor: String
+    @field:SerializedName("background_color") val bgColor: String,
+    @field:SerializedName("access_token") val accessToken: String?,
+    @field:SerializedName("access_token_expire") val accessTokenExpire: String?,
+    @field:SerializedName("refresh_token") val refreshToken: String?,
+    @field:SerializedName("refresh_token_expire") val refreshTokenExpire: String?
 )

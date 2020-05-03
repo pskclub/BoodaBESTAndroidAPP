@@ -24,6 +24,7 @@ package com.boodabest.network
  */
 enum class Status {
     SUCCESS,
+    LOADED,
     ERROR,
     LOADING
 }

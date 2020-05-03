@@ -33,5 +33,9 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
         fun <T> loading(data: T?): Resource<T> {
             return Resource(Status.LOADING, data, null)
         }
+
+        fun <T> loaded(msg: String, data: T?): Resource<T> {
+            return Resource(Status.LOADED, data, msg)
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.boodabest.di
 import android.app.Application
 import androidx.room.Room
 import com.boodabest.database.*
+import com.boodabest.services.AuthService
 import com.boodabest.services.BannerService
 import com.boodabest.services.BrandService
 import com.boodabest.services.ProductService
@@ -14,7 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-var baseAPI = "https://shop.zeedshop.com/api/"
+var baseAPI = "https://boodabest-ecom.pams.ai/api/"
 
 
 @Module(includes = [ViewModelModule::class])
@@ -152,4 +153,47 @@ class AppModule {
         return db.brandDao()
     }
 
+
+    @Singleton
+    @Provides
+    fun provideUserDb(app: Application): UserDb {
+        return Room
+            .inMemoryDatabaseBuilder(app, UserDb::class.java)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserDao(db: UserDb): UserDao {
+        return db.userDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideAuthService(): AuthService {
+        val httpClient = OkHttpClient.Builder()
+        httpClient.addInterceptor { chain ->
+            val original = chain.request()
+
+            // Request customization: add request headers
+            val requestBuilder = original.newBuilder()
+                .addHeader("language", "en")
+                .addHeader("x-device", "android")
+                .addHeader("x-timestamp", "2019-08-15 18:24:00")
+
+            val request = requestBuilder.build()
+            chain.proceed(request)
+        }
+
+        val okHttpClient = httpClient.build()
+
+        return Retrofit.Builder()
+            .baseUrl(baseAPI)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .client(okHttpClient)
+            .build()
+            .create(AuthService::class.java)
+    }
 }

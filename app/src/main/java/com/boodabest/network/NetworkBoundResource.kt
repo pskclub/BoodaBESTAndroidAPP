@@ -62,6 +62,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                             // which may not be updated with latest results received from network.
                             result.addSource(loadFromDb()) { newData ->
                                 setValue(Resource.success(newData))
+                                setValue(Resource.loaded("", newData))
                             }
                         }
                     }
@@ -71,6 +72,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                         // reload from disk whatever we had
                         result.addSource(loadFromDb()) { newData ->
                             setValue(Resource.success(newData))
+                            setValue(Resource.loaded("", newData))
                         }
                     }
                 }
@@ -78,6 +80,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
                         setValue(Resource.error(response.errorMessage, newData))
+                        setValue(Resource.loaded(response.errorMessage, newData))
                     }
                 }
             }
@@ -99,6 +102,54 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 
     @MainThread
     protected abstract fun loadFromDb(): LiveData<ResultType>
+
+    @MainThread
+    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+}
+
+abstract class NetworkBoundResourceNoCache<RequestType> constructor(private val appExecutors: AppExecutors) {
+
+    private val result = MediatorLiveData<Resource<RequestType>>()
+
+    init {
+        setValue(Resource.loading(null))
+        fetchFromNetwork()
+    }
+
+    @MainThread
+    private fun setValue(newValue: Resource<RequestType>) {
+        if (result.value != newValue) {
+            result.value = newValue
+        }
+    }
+
+    private fun fetchFromNetwork() {
+        val apiResponse = createCall()
+        result.addSource(apiResponse) { response ->
+            result.removeSource(apiResponse)
+
+            when (response) {
+                is ApiSuccessResponse -> {
+                    setValue(Resource.success(processResponse(response)))
+                    setValue(Resource.loaded("", processResponse(response)))
+                }
+
+                is ApiErrorResponse -> {
+                    onFetchFailed()
+                    setValue(Resource.error(response.errorMessage, null))
+                    setValue(Resource.loaded(response.errorMessage, null))
+                }
+            }
+        }
+    }
+
+    protected fun onFetchFailed() {
+    }
+
+    fun asLiveData() = result as LiveData<Resource<RequestType>>
+
+    @WorkerThread
+    protected open fun processResponse(response: ApiSuccessResponse<RequestType>) = response.body
 
     @MainThread
     protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
