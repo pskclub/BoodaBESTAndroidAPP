@@ -1,0 +1,23 @@
+package com.boodabest.database
+
+import androidx.room.Entity
+import com.google.gson.annotations.SerializedName
+
+@Entity(primaryKeys = ["id"], tableName = "user")
+data class User(
+    @field:SerializedName("member_id") val id: String,
+    @field:SerializedName("mobile") val mobile: String,
+    @field:SerializedName("email") val email: String,
+    @field:SerializedName("contact_email") val contactEmail: String,
+    @field:SerializedName("contact_mobile") val contactMobile: String,
+    @field:SerializedName("firstname") val firstName: String,
+    @field:SerializedName("lastname") val lastName: String,
+    @field:SerializedName("profile_image_url") val profileImageURL: String,
+    @field:SerializedName("language") val language: String,
+    @field:SerializedName("gender") val gender: String,
+    @field:SerializedName("registered_by") val registeredBy: String,
+    @field:SerializedName("member_card_no") val memberCardNo: String,
+    @field:SerializedName("member_point") val memberPoint: Number,
+    @field:SerializedName("notification_on") val isNotificationOn: Boolean,
+    @field:SerializedName("background_color") val bgColor: String
+)

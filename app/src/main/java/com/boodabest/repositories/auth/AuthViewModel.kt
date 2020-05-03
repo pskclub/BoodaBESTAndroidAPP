@@ -1,4 +1,4 @@
-package com.boodabest.repositories
+package com.boodabest.repositories.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

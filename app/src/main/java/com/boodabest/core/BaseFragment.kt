@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.boodabest.di.Injectable
 import com.boodabest.repositories.AppViewModel
-import com.boodabest.repositories.AuthViewModel
+import com.boodabest.repositories.auth.AuthViewModel
 import javax.inject.Inject
 
 abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId),

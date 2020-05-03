@@ -3,7 +3,7 @@ package com.boodabest.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.boodabest.repositories.AppViewModel
-import com.boodabest.repositories.AuthViewModel
+import com.boodabest.repositories.auth.AuthViewModel
 import com.boodabest.repositories.banner.BannerViewModel
 import com.boodabest.repositories.brand.BrandViewModel
 import com.boodabest.repositories.product.ProductViewModel
