@@ -79,6 +79,7 @@
                     android:paddingVertical="@dimen/paddingLG"
                     android:textColor="@color/white"
                     android:clickable="true"
+                    android:textAllCaps="false"
                     android:background="@drawable/button_style"
                     android:layout_marginTop="@dimen/marginXXL"
                     android:layout_width="match_parent"
