@@ -2,9 +2,9 @@
     <string name="app_name">ZeedSHOP</string>
 
     <string name="menu_account">Account Overview</string>
-    <string name="menu_login">Welcome to boodaBEST!</string>
+    <string name="menu_login">Welcome to ZeedSHOP!</string>
 
-    <string name="login_desc">The Best brands are waiting for you \nPlease login</string>
+    <string name="login_desc">The Best toys are waiting for you \nPlease login</string>
 
 
     <string name="nav_bottom_home">Home</string>
@@ -25,5 +25,8 @@
 
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
+    <string name="login_new_member">New member?</string>
+    <string name="login_sign_up_here">Sign up here</string>
     <string name="login_submit_btn">Login</string>
+    <string name="login_sign_up_btn">Sign Up</string>
 </resources>

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/paddingMD">
+        android:paddingHorizontal="@dimen/space">
 
         <TextView
             android:layout_width="match_parent"
@@ -23,11 +23,11 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/marginMD"
+            android:layout_marginVertical="@dimen/space"
             android:theme="@style/Theme.MaterialComponents.Light"
             app:cardCornerRadius="@dimen/roundedLG"
             app:cardElevation="0dp"
-            app:contentPadding="@dimen/paddingXL">
+            app:contentPadding="@dimen/spaceXL">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,52 +41,62 @@
 
                 <EditText
                     android:id="@+id/evEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin"
-                    android:background="@drawable/input_field_style"
+                    style="@style/InputField"
+                    android:autofillHints="@string/login_email"
                     android:hint="@string/login_email"
-                    android:inputType="text"
-                    android:padding="@dimen/paddingMD"
-                    android:textColor="@color/secondary"
-                    android:textColorHighlight="@color/gray"
-                    android:textColorHint="@color/gray"
-                    android:textCursorDrawable="@null"
                     tools:ignore="LabelFor,TextFields" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/marginMD"
+                    android:layout_marginTop="@dimen/space"
                     android:text="@string/login_password" />
 
                 <EditText
                     android:id="@+id/evPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin"
-                    android:background="@drawable/input_field_style"
+                    style="@style/InputField"
+                    android:autofillHints="@string/login_email"
                     android:hint="@string/login_password"
-                    android:inputType="text"
-                    android:padding="@dimen/paddingMD"
-                    android:textColor="@color/secondary"
-                    android:textColorHighlight="@color/gray"
-                    android:textColorHint="@color/gray"
-                    android:textCursorDrawable="@null"
+                    android:inputType="textPassword"
                     tools:ignore="LabelFor,TextFields" />
 
                 <Button
-                    android:paddingVertical="@dimen/paddingLG"
-                    android:textColor="@color/white"
-                    android:clickable="true"
-                    android:textAllCaps="false"
-                    android:background="@drawable/button_style"
-                    android:layout_marginTop="@dimen/marginXXL"
+                    android:id="@+id/btnLogin"
+                    style="@style/Button"
+                    android:layout_marginTop="@dimen/spaceXXL"
+                    android:backgroundTint="@color/warning"
+                    android:text="@string/login_submit_btn" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="@dimen/spaceXL"
+                    android:background="@color/light" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/warning"
-                    android:text="@string/login_submit_btn"
-                    android:focusable="true" />
+                    android:gravity="center"
+                    android:text="@string/login_new_member"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/textH5"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/space"
+                    android:text="@string/login_sign_up_here"
+                    android:textColor="@color/secondary" />
+
+                <Button
+                    android:id="@+id/btnSignUp"
+                    style="@style/Button"
+                    android:layout_width="180dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/primary"
+                    android:text="@string/login_sign_up_btn" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

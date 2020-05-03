@@ -11,16 +11,9 @@
     <dimen name="rounded">8dp</dimen>
     <dimen name="roundedLG">10dp</dimen>
 
-    <dimen name="padding">8dp</dimen>
-    <dimen name="paddingMD">16dp</dimen>
-    <dimen name="paddingLG">20dp</dimen>
-    <dimen name="paddingXL">24dp</dimen>
-    <dimen name="paddingXXL">32dp</dimen>
-
-    <dimen name="margin">8dp</dimen>
-    <dimen name="marginMD">16dp</dimen>
-    <dimen name="marginLG">20dp</dimen>
-    <dimen name="marginXL">24dp</dimen>
-    <dimen name="marginXXL">32dp</dimen>
-
+    <dimen name="spaceSM">8dp</dimen>
+    <dimen name="space">16dp</dimen>
+    <dimen name="spaceLG">20dp</dimen>
+    <dimen name="spaceXL">24dp</dimen>
+    <dimen name="spaceXXL">32dp</dimen>
 </resources>
