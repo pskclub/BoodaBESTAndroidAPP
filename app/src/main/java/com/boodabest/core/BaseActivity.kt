@@ -40,6 +40,16 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
         app.title.observe(this, Observer {
             supportActionBar?.title = it
         })
+
+        app.backAble.observe(this, Observer {
+            supportActionBar?.setDisplayHomeAsUpEnabled(it)
+        })
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
 }

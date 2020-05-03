@@ -69,7 +69,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
 
         val productBestSellerAdapter = ProductAdapter(appExecutors, onProductClick())
-
         productListBestSeller.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = productBestSellerAdapter
@@ -93,9 +92,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             adapter = productLatestAdapter
         }
 
-        productLatestViewModel.items.observe(viewLifecycleOwner, Observer { product ->
-            productLatestAdapter.submitList(product.data)
-        })
+        productLatestViewModel.items.observe(
+            viewLifecycleOwner,
+            Observer { product -> productLatestAdapter.submitList(product.data) })
     }
 
     private fun onProductClick(): (Product, CardView) -> Unit {

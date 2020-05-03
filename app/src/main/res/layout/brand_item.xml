@@ -38,6 +38,7 @@
                 android:paddingHorizontal="16dp"
                 android:id="@+id/logoImage"
                 android:layout_width="match_parent"
+                android:maxHeight="50dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true" />
 

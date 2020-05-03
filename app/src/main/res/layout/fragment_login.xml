@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary">
+    android:background="@color/primary"
+    android:fillViewport="true"
+    tools:context=".ui.auth.LoginFragment">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        tools:context=".ui.auth.LoginFragment">
+        android:paddingHorizontal="@dimen/paddingMD">
 
         <TextView
             android:layout_width="match_parent"
@@ -17,5 +19,74 @@
             android:text="@string/login_desc"
             android:textColor="@color/white" />
 
+        <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/marginMD"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:cardCornerRadius="@dimen/roundedLG"
+            app:cardElevation="0dp"
+            app:contentPadding="@dimen/paddingXL">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_email" />
+
+                <EditText
+                    android:id="@+id/evEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:background="@drawable/input_field_style"
+                    android:hint="@string/login_email"
+                    android:inputType="text"
+                    android:padding="@dimen/paddingMD"
+                    android:textColor="@color/secondary"
+                    android:textColorHighlight="@color/gray"
+                    android:textColorHint="@color/gray"
+                    android:textCursorDrawable="@null"
+                    tools:ignore="LabelFor,TextFields" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginMD"
+                    android:text="@string/login_password" />
+
+                <EditText
+                    android:id="@+id/evPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:background="@drawable/input_field_style"
+                    android:hint="@string/login_password"
+                    android:inputType="text"
+                    android:padding="@dimen/paddingMD"
+                    android:textColor="@color/secondary"
+                    android:textColorHighlight="@color/gray"
+                    android:textColorHint="@color/gray"
+                    android:textCursorDrawable="@null"
+                    tools:ignore="LabelFor,TextFields" />
+
+                <Button
+                    android:paddingVertical="@dimen/paddingLG"
+                    android:textColor="@color/white"
+                    android:clickable="true"
+                    android:background="@drawable/button_style"
+                    android:layout_marginTop="@dimen/marginXXL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/warning"
+                    android:text="@string/login_submit_btn"
+                    android:focusable="true" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </ScrollView>

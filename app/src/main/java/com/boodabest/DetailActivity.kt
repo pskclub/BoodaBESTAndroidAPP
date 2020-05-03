@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.boodabest.core.BaseActivity
-import com.boodabest.ui.auth.LoginFragment
 import com.boodabest.ui.product_single.ProductSingleFragment
 
 private const val TYPE = "type"
@@ -38,7 +37,6 @@ class DetailActivity : BaseActivity(R.layout.activity_detail) {
             when (type) {
                 PRODUCT_TYPE -> initProduct()
                 BRAND_TYPE -> initBrand()
-                LOGIN_TYPE -> initLogin()
             }
         }
 
@@ -48,9 +46,8 @@ class DetailActivity : BaseActivity(R.layout.activity_detail) {
     companion object {
         const val PRODUCT_TYPE = "product"
         const val BRAND_TYPE = "brand"
-        const val LOGIN_TYPE = "login"
 
-        fun newInstance(context: Context, type: String, id: String = "", title: String = "") =
+        fun newInstance(context: Context, type: String, id: String, title: String) =
             Intent(context, DetailActivity::class.java).apply {
                 putExtra(TYPE, type)
                 putExtra(ID, id)
@@ -64,11 +61,6 @@ class DetailActivity : BaseActivity(R.layout.activity_detail) {
             .commit()
     }
 
-    private fun initLogin() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, LoginFragment.newInstance())
-            .commit()
-    }
 
     private fun initBrand() {
 

@@ -15,5 +15,6 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         app.updateTitle(getString(R.string.menu_login))
+        app.updateBackAble(true)
     }
 }

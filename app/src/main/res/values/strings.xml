@@ -22,4 +22,8 @@
     <string name="product_brand_nav">Explore %1$s’s Brand Story</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="buy_now">Buy Now</string>
+
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_submit_btn">Login</string>
 </resources>
