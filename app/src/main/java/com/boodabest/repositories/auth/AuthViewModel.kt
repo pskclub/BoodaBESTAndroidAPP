@@ -1,19 +1,28 @@
 package com.boodabest.repositories.auth
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
+import com.boodabest.database.User
 import com.boodabest.models.LoginResponse
 import com.boodabest.network.Resource
 import javax.inject.Inject
 
-class AuthViewModel @Inject constructor(authRepository: AuthRepository) : ViewModel() {
-    private val _isAuth = MutableLiveData(false)
+class AuthViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
+    private val _isAuth = authRepository.me().map {
+        it !== null
+    }
     private val _loginCredential: MutableLiveData<LoginCredential> = MutableLiveData()
+    private val _login: MutableLiveData<FetchMe> = MutableLiveData()
 
     val isAuth: LiveData<Boolean>
         get() = _isAuth
+
+    val fetchMeItem: LiveData<Resource<User>> = _login.switchMap { input ->
+        input.ifExists { login ->
+            authRepository.fetchMe(login)
+        }
+    }
+
+    val me: LiveData<User> = authRepository.me()
 
     val loginItem: LiveData<Resource<LoginResponse>> = _loginCredential.switchMap { input ->
         input.ifExists { username, password ->
@@ -29,6 +38,23 @@ class AuthViewModel @Inject constructor(authRepository: AuthRepository) : ViewMo
         _loginCredential.value = update
     }
 
+    fun logout() {
+        authRepository.logout()
+    }
+
+    fun fetchMe(login: LoginResponse) {
+        val update = FetchMe(login)
+        if (_login.value == update) {
+            return
+        }
+        _login.value = update
+    }
+
+    data class FetchMe(val login: LoginResponse) {
+        fun <T> ifExists(f: (LoginResponse) -> LiveData<T>): LiveData<T> {
+            return f(login)
+        }
+    }
 
     data class LoginCredential(val username: String, val password: String) {
         fun <T> ifExists(f: (String, String) -> LiveData<T>): LiveData<T> {

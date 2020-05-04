@@ -1,6 +1,7 @@
 package com.boodabest.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
@@ -27,7 +28,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         app.updateTitle(getString(R.string.app_name))
-
         initProductListLatest()
         initProductListBestSeller()
         initBannerList()

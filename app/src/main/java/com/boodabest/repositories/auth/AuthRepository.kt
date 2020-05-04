@@ -30,11 +30,37 @@ class AuthRepository @Inject constructor(
         }.asLiveData()
     }
 
-  /*  fun get(username: String, password: String): LiveData<Resource<LoginResponse>> {
+    fun fetchMe(login: LoginResponse): LiveData<Resource<User>> {
         return object : NetworkBoundResource<User, User>(appExecutors) {
             override fun createCall(): LiveData<ApiResponse<User>> {
-                return authService.login(LoginBody(username, password))
+                return authService.profile(login.accessToken)
             }
+
+            override fun loadFromDb() = userDao.get()
+
+            override fun saveCallResult(item: User) {
+                val newUser = item.copy(
+                    accessToken = login.accessToken,
+                    accessTokenExpire = login.accessTokenExpire,
+                    refreshToken = login.refreshToken,
+                    refreshTokenExpire = login.refreshTokenExpire
+                )
+                userDao.delete()
+                userDao.insert(newUser)
+            }
+
+            override fun shouldFetch(data: User?) = true
         }.asLiveData()
-    }*/
+    }
+
+
+    fun me(): LiveData<User> {
+        return userDao.get()
+    }
+
+    fun logout() {
+        appExecutors.diskIO().execute {
+            userDao.delete()
+        }
+    }
 }

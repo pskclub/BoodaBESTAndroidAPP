@@ -158,7 +158,7 @@ class AppModule {
     @Provides
     fun provideUserDb(app: Application): UserDb {
         return Room
-            .inMemoryDatabaseBuilder(app, UserDb::class.java)
+            .databaseBuilder(app, UserDb::class.java, "user.db")
             .fallbackToDestructiveMigration()
             .build()
     }

@@ -11,4 +11,8 @@
         android:layout_height="match_parent"
         android:text="account" />
 
+    <Button
+        android:id="@+id/btnLogout"
+        style="@style/Button"
+        android:text="logout" />
 </FrameLayout>

@@ -36,21 +36,26 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
         view.isEnabled = false
         auth.setLogin(username, password)
-        auth.loginItem.observe(viewLifecycleOwner, Observer {
-            if (it.status === Status.LOADING) {
-                Log.w("loading", "...")
+        auth.loginItem.observe(viewLifecycleOwner, Observer { login ->
+            when (login.status) {
+                Status.LOADING -> {
+                    Log.w("loading", "...")
+                }
+                Status.LOADED -> {
+                    view.isEnabled = true
+                }
+                Status.SUCCESS -> {
+                    login.data?.accessToken?.let { auth.fetchMe(login.data) }
+                }
+                Status.ERROR -> {
+                    Log.w("error msg", login.message.toString())
+                }
             }
+        })
 
-            if (it.status === Status.LOADED) {
-                view.isEnabled = true
-            }
-
+        auth.fetchMeItem.observe(viewLifecycleOwner, Observer {
             if (it.status === Status.SUCCESS) {
-                Log.w("success", it.data.toString())
-            }
-
-            if (it.status === Status.ERROR) {
-                Log.w("error msg", it.message.toString())
+                requireActivity().supportFragmentManager.popBackStack()
             }
         })
     }
