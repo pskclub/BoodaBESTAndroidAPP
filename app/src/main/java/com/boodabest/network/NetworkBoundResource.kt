@@ -1,5 +1,6 @@
 package com.boodabest.network
 
+import android.util.Log
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
@@ -109,7 +110,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 
 abstract class NetworkBoundResourceNoCache<RequestType> constructor(private val appExecutors: AppExecutors) {
 
-    private val result = MediatorLiveData<Resource<RequestType>>()
+    internal val result = MediatorLiveData<Resource<RequestType>>()
 
     init {
         setValue(Resource.loading(null))
@@ -127,7 +128,6 @@ abstract class NetworkBoundResourceNoCache<RequestType> constructor(private val 
         val apiResponse = createCall()
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
-
             when (response) {
                 is ApiSuccessResponse -> {
                     setValue(Resource.success(processResponse(response)))
@@ -143,7 +143,7 @@ abstract class NetworkBoundResourceNoCache<RequestType> constructor(private val 
         }
     }
 
-    protected fun onFetchFailed() {
+    protected open fun onFetchFailed() {
     }
 
     fun asLiveData() = result as LiveData<Resource<RequestType>>

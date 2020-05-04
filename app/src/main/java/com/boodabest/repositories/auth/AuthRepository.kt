@@ -1,16 +1,16 @@
 package com.boodabest.repositories.auth
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.boodabest.core.AppExecutors
 import com.boodabest.database.User
 import com.boodabest.database.UserDao
+import com.boodabest.models.Empty
 import com.boodabest.models.LoginResponse
-import com.boodabest.network.ApiResponse
-import com.boodabest.network.NetworkBoundResource
-import com.boodabest.network.NetworkBoundResourceNoCache
-import com.boodabest.network.Resource
+import com.boodabest.network.*
 import com.boodabest.services.AuthService
 import com.boodabest.services.LoginBody
+import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -58,9 +58,45 @@ class AuthRepository @Inject constructor(
         return userDao.get()
     }
 
-    fun logout() {
-        appExecutors.diskIO().execute {
-            userDao.delete()
+    fun logout(): LiveData<Resource<Empty>> {
+        val logoutTask = LogoutTask(authService, userDao)
+        appExecutors.networkIO().execute(logoutTask)
+        return logoutTask.liveData
+    }
+}
+
+class LogoutTask constructor(
+    private val authService: AuthService,
+    private val userDao: UserDao
+) : Runnable {
+    private val _liveData = MutableLiveData<Resource<Empty>>()
+    val liveData: LiveData<Resource<Empty>> = _liveData
+
+    override fun run() {
+        _liveData.postValue(Resource.loading(Empty()))
+        val user = userDao.getResult()
+        val token = user?.accessToken ?: ""
+
+        val newValue = try {
+            val response = authService.logout(token).execute()
+            when (val apiResponse = ApiResponse.create(response)) {
+                is ApiSuccessResponse -> {
+                    userDao.delete()
+                    Resource.success(Empty())
+                }
+                is ApiEmptyResponse -> {
+                    userDao.delete()
+                    Resource.success(Empty())
+                }
+                is ApiErrorResponse -> {
+                    userDao.delete()
+                    Resource.error(apiResponse.errorMessage, Empty())
+                }
+            }
+
+        } catch (e: IOException) {
+            Resource.error(e.message!!, Empty())
         }
+        _liveData.postValue(newValue)
     }
 }

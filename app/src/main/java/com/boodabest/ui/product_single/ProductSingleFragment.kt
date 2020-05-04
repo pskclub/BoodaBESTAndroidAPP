@@ -41,6 +41,7 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
             productId = it.getString(PRODUCT_ID)
         }
 
+        app.updateBackAble(true)
         initProduct()
     }
 

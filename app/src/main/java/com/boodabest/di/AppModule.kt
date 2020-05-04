@@ -1,6 +1,7 @@
 package com.boodabest.di
 
 import android.app.Application
+import android.util.Log
 import androidx.room.Room
 import com.boodabest.database.*
 import com.boodabest.services.AuthService
@@ -175,7 +176,7 @@ class AppModule {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor { chain ->
             val original = chain.request()
-
+            Log.w("original", original.headers().toString())
             // Request customization: add request headers
             val requestBuilder = original.newBuilder()
                 .addHeader("language", "en")

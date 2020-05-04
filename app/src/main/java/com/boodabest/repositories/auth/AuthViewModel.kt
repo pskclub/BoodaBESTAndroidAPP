@@ -30,16 +30,16 @@ class AuthViewModel @Inject constructor(private val authRepository: AuthReposito
         }
     }
 
+    fun logout() {
+        authRepository.logout()
+    }
+
     fun setLogin(username: String, password: String) {
         val update = LoginCredential(username, password)
         if (_loginCredential.value == update) {
             return
         }
         _loginCredential.value = update
-    }
-
-    fun logout() {
-        authRepository.logout()
     }
 
     fun fetchMe(login: LoginResponse) {

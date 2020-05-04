@@ -16,4 +16,8 @@ interface UserDao {
 
     @Query("SELECT * FROM user LIMIT 1")
     abstract fun get(): LiveData<User>
+
+
+    @Query("SELECT * FROM user LIMIT 1")
+    abstract fun getResult(): User?
 }
