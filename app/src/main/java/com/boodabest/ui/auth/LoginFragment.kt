@@ -35,6 +35,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         }
 
         view.isEnabled = false
+        btnLogin.text = getString(R.string.login_submit_loading_btn)
         auth.setLogin(username, password)
         auth.loginItem.observe(viewLifecycleOwner, Observer { login ->
             when (login.status) {
@@ -45,10 +46,10 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                     view.isEnabled = true
                 }
                 Status.SUCCESS -> {
-                    login.data?.accessToken?.let { auth.fetchMe(login.data) }
+                    auth.fetchMe(login.data!!)
                 }
                 Status.ERROR -> {
-                    Log.w("error msg", login.message.toString())
+                    btnLogin.text = getString(R.string.login_submit_btn)
                 }
             }
         })

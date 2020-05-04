@@ -21,31 +21,39 @@ var baseAPI = "https://boodabest-ecom.pams.ai/api/"
 
 @Module(includes = [ViewModelModule::class])
 class AppModule {
-
-    @Singleton
-    @Provides
-    fun provideProductService(): ProductService {
+    private fun baseAPIOptions(): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor { chain ->
             val original = chain.request()
-            Log.w("url", original.url().toString())
             // Request customization: add request headers
             val requestBuilder = original.newBuilder()
                 .addHeader("language", "en")
                 .addHeader("x-device", "android")
                 .addHeader("x-timestamp", "2019-08-15 18:24:00")
 
+
             val request = requestBuilder.build()
+
+            Log.i("URL: ", request.url().toString())
+            Log.i("Method: ", request.method().toString())
+            Log.i("Headers: ", request.headers().toString())
+            Log.i("Body: ", request.body().toString())
+
             chain.proceed(request)
         }
 
-        val okHttpClient = httpClient.build()
+        return httpClient.build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideProductService(): ProductService {
 
         return Retrofit.Builder()
             .baseUrl(baseAPI)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
-            .client(okHttpClient)
+            .client(baseAPIOptions())
             .build()
             .create(ProductService::class.java)
     }
@@ -70,27 +78,11 @@ class AppModule {
     @Singleton
     @Provides
     fun provideBannerService(): BannerService {
-        val httpClient = OkHttpClient.Builder()
-        httpClient.addInterceptor { chain ->
-            val original = chain.request()
-            Log.w("url", original.url().toString())
-            // Request customization: add request headers
-            val requestBuilder = original.newBuilder()
-                .addHeader("language", "en")
-                .addHeader("x-device", "android")
-                .addHeader("x-timestamp", "2019-08-15 18:24:00")
-
-            val request = requestBuilder.build()
-            chain.proceed(request)
-        }
-
-        val okHttpClient = httpClient.build()
-
         return Retrofit.Builder()
             .baseUrl(baseAPI)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
-            .client(okHttpClient)
+            .client(baseAPIOptions())
             .build()
             .create(BannerService::class.java)
     }
@@ -114,27 +106,11 @@ class AppModule {
     @Singleton
     @Provides
     fun provideBrandService(): BrandService {
-        val httpClient = OkHttpClient.Builder()
-        httpClient.addInterceptor { chain ->
-            val original = chain.request()
-            Log.w("url", original.url().toString())
-            // Request customization: add request headers
-            val requestBuilder = original.newBuilder()
-                .addHeader("language", "en")
-                .addHeader("x-device", "android")
-                .addHeader("x-timestamp", "2019-08-15 18:24:00")
-
-            val request = requestBuilder.build()
-            chain.proceed(request)
-        }
-
-        val okHttpClient = httpClient.build()
-
         return Retrofit.Builder()
             .baseUrl(baseAPI)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
-            .client(okHttpClient)
+            .client(baseAPIOptions())
             .build()
             .create(BrandService::class.java)
     }
@@ -173,27 +149,11 @@ class AppModule {
     @Singleton
     @Provides
     fun provideAuthService(): AuthService {
-        val httpClient = OkHttpClient.Builder()
-        httpClient.addInterceptor { chain ->
-            val original = chain.request()
-            Log.w("url", original.url().toString())
-            // Request customization: add request headers
-            val requestBuilder = original.newBuilder()
-                .addHeader("language", "en")
-                .addHeader("x-device", "android")
-                .addHeader("x-timestamp", "2019-08-15 18:24:00")
-
-            val request = requestBuilder.build()
-            chain.proceed(request)
-        }
-
-        val okHttpClient = httpClient.build()
-
         return Retrofit.Builder()
             .baseUrl(baseAPI)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
-            .client(okHttpClient)
+            .client(baseAPIOptions())
             .build()
             .create(AuthService::class.java)
     }

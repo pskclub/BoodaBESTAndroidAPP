@@ -28,5 +28,6 @@
     <string name="login_new_member">New member?</string>
     <string name="login_sign_up_here">Sign up here</string>
     <string name="login_submit_btn">Login</string>
+    <string name="login_submit_loading_btn">Logging In…</string>
     <string name="login_sign_up_btn">Sign Up</string>
 </resources>
