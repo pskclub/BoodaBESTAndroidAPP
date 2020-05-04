@@ -6,6 +6,8 @@ import com.boodabest.di.AppInjector
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 import javax.inject.Inject
 
 
@@ -18,5 +20,8 @@ class BoodaBESTApplication : Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
         AppInjector.init(this)
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
     }
 }

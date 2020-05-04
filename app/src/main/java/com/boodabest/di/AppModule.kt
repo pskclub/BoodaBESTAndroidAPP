@@ -1,7 +1,6 @@
 package com.boodabest.di
 
 import android.app.Application
-import android.util.Log
 import androidx.room.Room
 import com.boodabest.database.*
 import com.boodabest.services.AuthService
@@ -14,6 +13,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import javax.inject.Singleton
 
 var baseAPI = "https://boodabest-ecom.pams.ai/api/"
@@ -33,12 +33,13 @@ class AppModule {
 
 
             val request = requestBuilder.build()
-
-            Log.i("URL: ", request.url().toString())
-            Log.i("Method: ", request.method().toString())
-            Log.i("Headers: ", request.headers().toString())
-            Log.i("Body: ", request.body().toString())
-
+            val tagName = "Network: "
+            Timber.tag(tagName).i("*****************")
+            Timber.tag(tagName).i("*****************")
+            Timber.tag(tagName + "URL").i(request.url().toString())
+            Timber.tag(tagName + "Method").i(request.method().toString())
+            Timber.tag(tagName + "Headers").i(request.headers().toString())
+            Timber.tag(tagName + "Body").i(request.body().toString())
             chain.proceed(request)
         }
 
