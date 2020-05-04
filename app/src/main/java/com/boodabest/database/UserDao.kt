@@ -15,9 +15,9 @@ interface UserDao {
     fun delete()
 
     @Query("SELECT * FROM user LIMIT 1")
-    abstract fun get(): LiveData<User>
+    abstract fun find(): LiveData<User>
 
 
     @Query("SELECT * FROM user LIMIT 1")
-    abstract fun getResult(): User?
+    abstract fun findResult(): User?
 }

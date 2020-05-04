@@ -5,6 +5,7 @@ import com.boodabest.core.AppExecutors
 import com.boodabest.database.Product
 import com.boodabest.database.ProductDao
 import com.boodabest.models.PageMeta
+import com.boodabest.models.RepoOptions
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.Resource
@@ -20,7 +21,7 @@ class ProductRepository @Inject constructor(
     private val productDao: ProductDao
 ) {
 
-    fun find(id: String): LiveData<Resource<Product>> {
+    fun find(id: String, options: RepoOptions): LiveData<Resource<Product>> {
         return object : NetworkBoundResource<Product, Product>(appExecutors) {
             override fun createCall(): LiveData<ApiResponse<Product>> {
                 return productService.find(id)
@@ -32,7 +33,7 @@ class ProductRepository @Inject constructor(
                 productDao.insert(item)
             }
 
-            override fun shouldFetch(data: Product?) = data == null
+            override fun shouldFetch(data: Product?) = options.isNetworkOnly || data == null
         }.asLiveData()
     }
 

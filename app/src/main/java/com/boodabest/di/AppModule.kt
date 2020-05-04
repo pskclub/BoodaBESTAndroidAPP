@@ -28,7 +28,7 @@ class AppModule {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor { chain ->
             val original = chain.request()
-
+            Log.w("url", original.url().toString())
             // Request customization: add request headers
             val requestBuilder = original.newBuilder()
                 .addHeader("language", "en")
@@ -73,7 +73,7 @@ class AppModule {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor { chain ->
             val original = chain.request()
-
+            Log.w("url", original.url().toString())
             // Request customization: add request headers
             val requestBuilder = original.newBuilder()
                 .addHeader("language", "en")
@@ -117,7 +117,7 @@ class AppModule {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor { chain ->
             val original = chain.request()
-
+            Log.w("url", original.url().toString())
             // Request customization: add request headers
             val requestBuilder = original.newBuilder()
                 .addHeader("language", "en")
@@ -176,7 +176,7 @@ class AppModule {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor { chain ->
             val original = chain.request()
-            Log.w("original", original.headers().toString())
+            Log.w("url", original.url().toString())
             // Request customization: add request headers
             val requestBuilder = original.newBuilder()
                 .addHeader("language", "en")

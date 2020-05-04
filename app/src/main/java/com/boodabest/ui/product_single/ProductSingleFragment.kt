@@ -7,9 +7,10 @@ import android.view.View
 import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.boodabest.core.BaseFragment
 import com.boodabest.R
+import com.boodabest.core.BaseFragment
 import com.boodabest.database.Product
+import com.boodabest.models.RepoOptions
 import com.boodabest.repositories.product.ProductViewModel
 import com.boodabest.utils.toSpanned
 import com.bumptech.glide.Glide
@@ -63,7 +64,7 @@ class ProductSingleFragment : BaseFragment(R.layout.fragment_product_single) {
             viewModelFactory
         }
 
-        productViewModel.setProductId(productId!!)
+        productViewModel.setProductId(productId!!, RepoOptions(isNetworkOnly = true))
         productViewModel.item.observe(viewLifecycleOwner, Observer { product ->
             if (product.data !== null) {
                 initProductDialog(product.data)

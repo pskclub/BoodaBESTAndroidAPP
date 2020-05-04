@@ -44,11 +44,14 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
 
             R.id.nav_item_account -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container, AccountOverviewFragment.newInstance())
-                    .addToBackStack(null)
-                    .commit()
+                val tag = R.id.nav_item_account.toString()
+                if (supportFragmentManager.findFragmentByTag(tag) == null) {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, AccountOverviewFragment.newInstance(), tag)
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
         }
 

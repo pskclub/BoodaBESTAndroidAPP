@@ -7,7 +7,10 @@ import com.boodabest.database.User
 import com.boodabest.database.UserDao
 import com.boodabest.models.Empty
 import com.boodabest.models.LoginResponse
-import com.boodabest.network.*
+import com.boodabest.network.ApiResponse
+import com.boodabest.network.NetworkBoundResource
+import com.boodabest.network.NetworkBoundResourceNoCache
+import com.boodabest.network.Resource
 import com.boodabest.services.AuthService
 import com.boodabest.services.LoginBody
 import java.io.IOException
@@ -36,7 +39,7 @@ class AuthRepository @Inject constructor(
                 return authService.profile(login.accessToken)
             }
 
-            override fun loadFromDb() = userDao.get()
+            override fun loadFromDb() = userDao.find()
 
             override fun saveCallResult(item: User) {
                 val newUser = item.copy(
@@ -55,48 +58,33 @@ class AuthRepository @Inject constructor(
 
 
     fun me(): LiveData<User> {
-        return userDao.get()
+        return userDao.find()
     }
 
     fun logout(): LiveData<Resource<Empty>> {
-        val logoutTask = LogoutTask(authService, userDao)
+        class LogoutTask : Runnable {
+            private val _liveData = MutableLiveData<Resource<Empty>>()
+            val liveData: LiveData<Resource<Empty>> = _liveData
+
+            override fun run() {
+                _liveData.postValue(Resource.loading(Empty()))
+                val user = userDao.findResult()
+                val token = user?.accessToken ?: ""
+
+                val newValue = try {
+                    val response = authService.logout(token).execute()
+                    ApiResponse.create(response)
+                    userDao.delete()
+                    Resource.success(Empty())
+                } catch (e: IOException) {
+                    Resource.error(e.message!!, Empty())
+                }
+                _liveData.postValue(newValue)
+            }
+        }
+
+        val logoutTask = LogoutTask()
         appExecutors.networkIO().execute(logoutTask)
         return logoutTask.liveData
-    }
-}
-
-class LogoutTask constructor(
-    private val authService: AuthService,
-    private val userDao: UserDao
-) : Runnable {
-    private val _liveData = MutableLiveData<Resource<Empty>>()
-    val liveData: LiveData<Resource<Empty>> = _liveData
-
-    override fun run() {
-        _liveData.postValue(Resource.loading(Empty()))
-        val user = userDao.getResult()
-        val token = user?.accessToken ?: ""
-
-        val newValue = try {
-            val response = authService.logout(token).execute()
-            when (val apiResponse = ApiResponse.create(response)) {
-                is ApiSuccessResponse -> {
-                    userDao.delete()
-                    Resource.success(Empty())
-                }
-                is ApiEmptyResponse -> {
-                    userDao.delete()
-                    Resource.success(Empty())
-                }
-                is ApiErrorResponse -> {
-                    userDao.delete()
-                    Resource.error(apiResponse.errorMessage, Empty())
-                }
-            }
-
-        } catch (e: IOException) {
-            Resource.error(e.message!!, Empty())
-        }
-        _liveData.postValue(newValue)
     }
 }
