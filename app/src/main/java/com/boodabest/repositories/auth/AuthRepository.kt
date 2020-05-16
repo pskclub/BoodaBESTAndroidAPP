@@ -57,6 +57,36 @@ class AuthRepository @Inject constructor(
     }
 
 
+    fun fetchMe(): LiveData<Resource<User>> {
+        return object : NetworkBoundResource<User, User>(appExecutors) {
+            override fun createCall(): LiveData<ApiResponse<User>> {
+                class FetchMeTask : Runnable {
+                    private val _liveData = MutableLiveData<ApiResponse<User>>()
+                    val liveData: LiveData<ApiResponse<User>> = _liveData
+
+                    override fun run() {
+                        val user = userDao.findResult()
+                        val token = user?.accessToken ?: ""
+                        val response = ApiResponse.create(authService.profileCall(token).execute())
+                        _liveData.postValue(response)
+                    }
+                }
+
+                val fetchMeTask = FetchMeTask()
+                appExecutors.networkIO().execute(fetchMeTask)
+                return fetchMeTask.liveData
+            }
+
+            override fun loadFromDb() = userDao.find()
+
+            override fun saveCallResult(item: User) {
+                userDao.update(item)
+            }
+
+            override fun shouldFetch(data: User?) = true
+        }.asLiveData()
+    }
+
     fun me(): LiveData<User> {
         return userDao.find()
     }
@@ -72,8 +102,7 @@ class AuthRepository @Inject constructor(
                 val token = user?.accessToken ?: ""
 
                 val newValue = try {
-                    val response = authService.logout(token).execute()
-                    ApiResponse.create(response)
+                    authService.logout(token).execute()
                     userDao.delete()
                     Resource.success(Empty())
                 } catch (e: IOException) {

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.boodabest.di.Injectable
+import com.boodabest.hideKeyboard
 import com.boodabest.repositories.AppViewModel
 import com.boodabest.repositories.auth.AuthViewModel
 import javax.inject.Inject
@@ -37,4 +38,11 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentL
         super.onViewCreated(view, savedInstanceState)
         app.updateBackAble(false)
     }
+}
+
+
+
+
+fun Fragment.hideKeyboard() {
+    view?.let { activity?.hideKeyboard(it) }
 }

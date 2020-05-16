@@ -60,6 +60,7 @@
                     android:autofillHints="@string/login_email"
                     android:hint="@string/login_password"
                     android:inputType="textPassword"
+                    android:imeOptions="actionDone"
                     tools:ignore="LabelFor,TextFields" />
 
                 <Button

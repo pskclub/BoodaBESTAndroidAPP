@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
     private val _isAuth = authRepository.me().map {
-        it !== null
+        it != null
     }
     private val _loginCredential: MutableLiveData<LoginCredential> = MutableLiveData()
     private val _login: MutableLiveData<FetchMe> = MutableLiveData()
@@ -22,7 +22,7 @@ class AuthViewModel @Inject constructor(private val authRepository: AuthReposito
         }
     }
 
-    val me: LiveData<User> = authRepository.me()
+    val me: LiveData<Resource<User>> = authRepository.fetchMe()
 
     val loginItem: LiveData<Resource<LoginResponse>> = _loginCredential.switchMap { input ->
         input.ifExists { username, password ->

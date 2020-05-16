@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ZeedSHOP</string>
 
-    <string name="menu_account">Account Overview</string>
+    <string name="menu_account">Manage Account</string>
     <string name="menu_login">Welcome to boodaBEST!</string>
 
     <string name="login_desc">The Best brands are waiting for you \nPlease login</string>
@@ -30,4 +30,6 @@
     <string name="login_submit_btn">Login</string>
     <string name="login_submit_loading_btn">Logging In…</string>
     <string name="login_sign_up_btn">Sign Up</string>
+    <string name="account_logout">logout</string>
+    <string name="account_profile">Profile</string>
 </resources>

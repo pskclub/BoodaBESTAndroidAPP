@@ -11,7 +11,6 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
-import java.util.*
 
 data class LoginBody(
     @SerializedName("username") val username: String,
@@ -24,6 +23,9 @@ interface AuthService {
 
     @GET("member/myprofile")
     fun profile(@Header("Authorization") token: String): LiveData<ApiResponse<User>>
+
+    @GET("member/myprofile")
+    fun profileCall(@Header("Authorization") token: String): Call<User>
 
     @POST("member/logout")
     fun logout(@Header("Authorization") token: String): Call<Empty>

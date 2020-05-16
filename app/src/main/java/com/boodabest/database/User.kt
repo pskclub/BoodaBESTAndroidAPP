@@ -3,7 +3,7 @@ package com.boodabest.database
 import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
-@Entity(primaryKeys = ["refreshToken"], tableName = "user")
+@Entity(primaryKeys = ["id"], tableName = "user")
 data class User(
     @field:SerializedName("member_id") val id: String = "",
     @field:SerializedName("mobile") val mobile: String = "",
@@ -23,4 +23,8 @@ data class User(
     @field:SerializedName("access_token_expire") val accessTokenExpire: String = "",
     @field:SerializedName("refresh_token") val refreshToken: String = "",
     @field:SerializedName("refresh_token_expire") val refreshTokenExpire: String = ""
-)
+) {
+    fun fullName(): String {
+        return "$firstName $lastName"
+    }
+}

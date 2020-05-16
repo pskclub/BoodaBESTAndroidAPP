@@ -1,18 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.AccountOverviewFragment">
+    android:background="@color/primary"
+    android:fillViewport="true"
+    tools:context=".ui.auth.LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="account" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/space">
 
-    <Button
-        android:id="@+id/btnLogout"
-        style="@style/Button"
-        android:text="logout" />
-</FrameLayout>
+        <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/space"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:cardCornerRadius="@dimen/roundedLG"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/fragment_account_overview_header" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/primaryLight"
+                    android:paddingHorizontal="@dimen/spaceXXL"
+                    android:paddingVertical="@dimen/spaceLG"
+                    android:layout_marginBottom="@dimen/space"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:textColor="@color/secondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_profile" />
+                </LinearLayout>
+
+                <Button
+                    android:layout_marginHorizontal="@dimen/space"
+                    android:id="@+id/btnLogout"
+                    style="@style/Button"
+                    android:text="@string/account_logout" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+
+</ScrollView>

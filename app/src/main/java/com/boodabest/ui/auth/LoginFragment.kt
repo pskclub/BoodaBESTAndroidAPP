@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.boodabest.R
 import com.boodabest.core.BaseFragment
+import com.boodabest.core.hideKeyboard
 import com.boodabest.network.Status
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -27,6 +28,8 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     }
 
     private fun onBtnLoginClick(view: View) {
+        hideKeyboard()
+
         val username = evEmail.text.toString()
         val password = evPassword.text.toString()
 

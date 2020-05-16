@@ -1,12 +1,15 @@
 package com.boodabest.core
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.boodabest.hideKeyboard
 import com.boodabest.repositories.AppViewModel
 import com.boodabest.repositories.auth.AuthViewModel
 import dagger.android.DispatchingAndroidInjector
@@ -52,4 +55,8 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
         return true
     }
 
+}
+
+fun Activity.hideKeyboard() {
+    hideKeyboard(currentFocus ?: View(this))
 }
