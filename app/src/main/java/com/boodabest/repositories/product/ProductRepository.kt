@@ -37,10 +37,14 @@ class ProductRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun get(options: RepoOptions = RepoOptions()): LiveData<Resource<List<Product>>> {
+    fun get(
+        page: String = "",
+        query: String = "",
+        options: RepoOptions = RepoOptions()
+    ): LiveData<Resource<List<Product>>> {
         return object : NetworkBoundResource<List<Product>, PageMeta<Product>>(appExecutors) {
             override fun createCall(): LiveData<ApiResponse<PageMeta<Product>>> {
-                return productService.get()
+                return productService.get(page, query)
             }
 
             override fun loadFromDb() = productDao.get()

@@ -23,7 +23,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
     val items: LiveData<Resource<List<Product>>> = _fetchItems.switchMap { input ->
         input.ifExists { options ->
-            productRepository.get(options)
+            productRepository.get(options = options)
         }
     }
 
