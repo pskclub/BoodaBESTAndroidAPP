@@ -35,7 +35,7 @@
                     android:background="@color/primaryLight"
                     android:paddingHorizontal="@dimen/spaceXXL"
                     android:paddingVertical="@dimen/spaceLG"
-                    android:layout_marginBottom="@dimen/space"
+                    android:layout_marginBottom="@dimen/spaceXS"
                     android:orientation="horizontal">
 
                     <TextView
@@ -43,14 +43,32 @@
                         android:textColor="@color/secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_profile" />
+                        android:text="@string/account_menu_profile" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="@dimen/spaceXS"
+                    android:background="@color/primaryLight"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/spaceXXL"
+                    android:paddingVertical="@dimen/spaceLG">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/account_menu_address_book"
+                        android:textColor="@color/secondary" />
                 </LinearLayout>
 
                 <Button
                     android:layout_marginHorizontal="@dimen/space"
                     android:id="@+id/btnLogout"
                     style="@style/Button"
-                    android:text="@string/account_logout" />
+                    android:layout_marginTop="@dimen/space"
+                    android:text="@string/account_menu_logout" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

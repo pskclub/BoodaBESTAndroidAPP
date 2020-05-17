@@ -54,16 +54,11 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                         view.isEnabled = true
                     }
                     Status.SUCCESS -> {
-                        auth.fetchMe(login.data!!)
+                        requireActivity().supportFragmentManager.popBackStack()
                     }
                     Status.ERROR -> {
                         btnLogin.text = getString(R.string.login_submit_btn)
                     }
-                }
-            })
-            fetchMeItem.observe(viewLifecycleOwner, Observer {
-                if (it.status === Status.SUCCESS) {
-                    requireActivity().supportFragmentManager.popBackStack()
                 }
             })
         }

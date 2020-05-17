@@ -28,7 +28,36 @@ class AuthRepository @Inject constructor(
     fun login(username: String, password: String): LiveData<Resource<LoginResponse>> {
         return object : NetworkBoundResourceNoCache<LoginResponse>(appExecutors) {
             override fun createCall(): LiveData<ApiResponse<LoginResponse>> {
-                return authService.login(LoginBody(username, password))
+                class LoginTask : Runnable {
+                    private val _liveData = MutableLiveData<ApiResponse<LoginResponse>>()
+                    val liveData: LiveData<ApiResponse<LoginResponse>> = _liveData
+
+                    override fun run() {
+                        val login = authService.login(LoginBody(username, password)).execute()
+                        if (login.code() == 200) {
+                            val profile =
+                                authService.profileCall(login.body()!!.accessToken).execute()
+                            if (profile.code() == 200) {
+                                userDao.delete()
+                                userDao.insert(
+                                    profile.body()!!.copy(
+                                        accessToken = login.body()!!.accessToken,
+                                        accessTokenExpire = login.body()!!.accessTokenExpire,
+                                        refreshToken = login.body()!!.refreshToken,
+                                        refreshTokenExpire = login.body()!!.refreshTokenExpire
+                                    )
+                                )
+
+                            }
+                        }
+
+                        _liveData.postValue(ApiResponse.create(login))
+                    }
+                }
+
+                val loginTask = LoginTask()
+                appExecutors.networkIO().execute(loginTask)
+                return loginTask.liveData
             }
         }.asLiveData()
     }
@@ -67,8 +96,13 @@ class AuthRepository @Inject constructor(
                     override fun run() {
                         val user = userDao.findResult()
                         val token = user?.accessToken ?: ""
-                        val response = ApiResponse.create(authService.profileCall(token).execute())
-                        _liveData.postValue(response)
+                        if (token.isNotBlank()) {
+                            val response =
+                                ApiResponse.create(authService.profileCall(token).execute())
+                            _liveData.postValue(response)
+                        } else {
+                            _liveData.postValue(null)
+                        }
                     }
                 }
 

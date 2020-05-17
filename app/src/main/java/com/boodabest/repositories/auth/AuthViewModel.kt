@@ -16,12 +16,6 @@ class AuthViewModel @Inject constructor(private val authRepository: AuthReposito
     val isAuth: LiveData<Boolean>
         get() = _isAuth
 
-    val fetchMeItem: LiveData<Resource<User>> = _login.switchMap { input ->
-        input.ifExists { login ->
-            authRepository.fetchMe(login)
-        }
-    }
-
     val me: LiveData<Resource<User>> = authRepository.fetchMe()
 
     val loginItem: LiveData<Resource<LoginResponse>> = _loginCredential.switchMap { input ->

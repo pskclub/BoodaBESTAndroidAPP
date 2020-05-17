@@ -19,7 +19,7 @@ data class LoginBody(
 
 interface AuthService {
     @POST("member/login")
-    fun login(@Body data: LoginBody): LiveData<ApiResponse<LoginResponse>>
+    fun login(@Body data: LoginBody): Call<LoginResponse>
 
     @GET("member/myprofile")
     fun profile(@Header("Authorization") token: String): LiveData<ApiResponse<User>>

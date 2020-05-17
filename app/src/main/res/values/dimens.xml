@@ -11,6 +11,7 @@
     <dimen name="rounded">8dp</dimen>
     <dimen name="roundedLG">10dp</dimen>
 
+    <dimen name="spaceXS">4dp</dimen>
     <dimen name="spaceSM">8dp</dimen>
     <dimen name="space">16dp</dimen>
     <dimen name="spaceLG">20dp</dimen>
