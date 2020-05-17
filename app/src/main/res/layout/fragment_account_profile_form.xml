@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/space">
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/account_profile_first_name" />
+
+    <EditText
+        android:id="@+id/evFirstName"
+        style="@style/InputField"
+        android:autofillHints="@string/account_profile_first_name"
+        android:hint="@string/account_profile_first_name"
+        tools:ignore="LabelFor,TextFields" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/account_profile_last_name" />
+
+    <EditText
+        android:id="@+id/evLastName"
+        style="@style/InputField"
+        android:autofillHints="@string/account_profile_last_name"
+        android:hint="@string/account_profile_last_name"
+        tools:ignore="LabelFor,TextFields" />
+
+<!--    <com.boodabest.view.form.InputTextFieldView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/account_profile_email" />
+
+    <EditText
+        android:id="@+id/evEmail"
+        style="@style/InputField"
+        android:autofillHints="@string/account_profile_email"
+        android:hint="@string/account_profile_email"
+        tools:ignore="LabelFor,TextFields" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/Button"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/spaceXXL"
+            android:layout_marginEnd="@dimen/spaceSM"
+            android:layout_weight="1"
+            android:backgroundTint="@color/gray"
+            android:text="@string/account_profile_cancel"
+            android:textColor="@color/secondary" />
+
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/Button"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/spaceXXL"
+            android:layout_weight="1"
+            android:backgroundTint="@color/warning"
+            android:text="@string/account_profile_save" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,6 +9,7 @@ import com.boodabest.network.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.fragment_account_profile.*
+import kotlinx.android.synthetic.main.fragment_account_profile_form.*
 import kotlinx.android.synthetic.main.fragment_account_profile_header.*
 
 class AccountProfileFragment : BaseAuthFragment(R.layout.fragment_account_profile) {
@@ -27,16 +28,21 @@ class AccountProfileFragment : BaseAuthFragment(R.layout.fragment_account_profil
             auth.fetchMe()
         }
 
-        initHeader()
+        init()
     }
 
-    private fun initHeader() {
+    private fun init() {
         auth.fetchMe()
         auth.me.observe(viewLifecycleOwner, Observer { user ->
             if (user.status == Status.LOADED) {
                 vSwipeRefresh.isRefreshing = false
             }
             if (user.data != null) {
+                evFirstName.setText(user.data.firstName)
+                evLastName.setText(user.data.lastName)
+//                evPhoneNumber.setText(user.data.contactMobile)
+                evEmail.setText(user.data.contactEmail)
+
                 Glide
                     .with(this)
                     .load(user.data.profileImageURL)

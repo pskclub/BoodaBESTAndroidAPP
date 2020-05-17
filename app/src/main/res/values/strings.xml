@@ -39,4 +39,10 @@
     <string name="account_menu_order">Order</string>
     <string name="account_menu_change_lang">Language Change</string>
     <string name="account_profile_edit_profile_photo">Edit Profile Photo</string>
+    <string name="account_profile_save">Save</string>
+    <string name="account_profile_cancel">Cancel</string>
+    <string name="account_profile_first_name">First Name</string>
+    <string name="account_profile_last_name">Last Name</string>
+    <string name="account_profile_phone_number">Phone Number</string>
+    <string name="account_profile_email">Email</string>
 </resources>

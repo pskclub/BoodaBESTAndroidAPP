@@ -34,6 +34,7 @@
 
                     <include layout="@layout/fragment_account_profile_header" />
 
+                    <include layout="@layout/fragment_account_profile_form" />
                 </LinearLayout>
 
 
