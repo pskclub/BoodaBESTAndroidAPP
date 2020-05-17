@@ -7,6 +7,7 @@ import com.boodabest.database.User
 import com.boodabest.database.UserDao
 import com.boodabest.models.Empty
 import com.boodabest.models.LoginResponse
+import com.boodabest.models.RepoOptions
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.NetworkBoundResourceNoCache
@@ -62,31 +63,8 @@ class AuthRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun fetchMe(login: LoginResponse): LiveData<Resource<User>> {
-        return object : NetworkBoundResource<User, User>(appExecutors) {
-            override fun createCall(): LiveData<ApiResponse<User>> {
-                return authService.profile(login.accessToken)
-            }
 
-            override fun loadFromDb() = userDao.find()
-
-            override fun saveCallResult(item: User) {
-                val newUser = item.copy(
-                    accessToken = login.accessToken,
-                    accessTokenExpire = login.accessTokenExpire,
-                    refreshToken = login.refreshToken,
-                    refreshTokenExpire = login.refreshTokenExpire
-                )
-                userDao.delete()
-                userDao.insert(newUser)
-            }
-
-            override fun shouldFetch(data: User?) = true
-        }.asLiveData()
-    }
-
-
-    fun fetchMe(): LiveData<Resource<User>> {
+    fun fetchMe(options: RepoOptions = RepoOptions()): LiveData<Resource<User>> {
         return object : NetworkBoundResource<User, User>(appExecutors) {
             override fun createCall(): LiveData<ApiResponse<User>> {
                 class FetchMeTask : Runnable {
@@ -114,10 +92,18 @@ class AuthRepository @Inject constructor(
             override fun loadFromDb() = userDao.find()
 
             override fun saveCallResult(item: User) {
-                userDao.update(item)
+                val oldUser = userDao.findResult()
+                userDao.update(
+                    item.copy(
+                        accessToken = oldUser!!.accessToken,
+                        accessTokenExpire = oldUser.accessTokenExpire,
+                        refreshToken = oldUser.refreshToken,
+                        refreshTokenExpire = oldUser.refreshTokenExpire
+                    )
+                )
             }
 
-            override fun shouldFetch(data: User?) = true
+            override fun shouldFetch(data: User?) = options.isNetworkOnly || data == null
         }.asLiveData()
     }
 

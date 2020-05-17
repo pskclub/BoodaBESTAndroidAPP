@@ -7,71 +7,77 @@
     android:fillViewport="true"
     tools:context=".ui.auth.LoginFragment">
 
-    <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/vSwipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/space">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/cardView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/space"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:cardCornerRadius="@dimen/roundedLG"
-            app:cardElevation="0dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/space">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include layout="@layout/fragment_account_overview_header" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@color/primaryLight"
-                    android:paddingHorizontal="@dimen/spaceXXL"
-                    android:paddingVertical="@dimen/spaceLG"
-                    android:layout_marginBottom="@dimen/spaceXS"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_gravity="center"
-                        android:textColor="@color/secondary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/account_menu_profile" />
-                </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/space"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:cardCornerRadius="@dimen/roundedLG"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="@dimen/spaceXS"
-                    android:background="@color/primaryLight"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/spaceXXL"
-                    android:paddingVertical="@dimen/spaceLG">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/account_menu_address_book"
-                        android:textColor="@color/secondary" />
+                    <include layout="@layout/fragment_account_overview_header" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="@dimen/spaceXS"
+                        android:background="@color/primaryLight"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/spaceXXL"
+                        android:paddingVertical="@dimen/spaceLG">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/account_menu_profile"
+                            android:textColor="@color/secondary" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="@dimen/spaceXS"
+                        android:background="@color/primaryLight"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/spaceXXL"
+                        android:paddingVertical="@dimen/spaceLG">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/account_menu_address_book"
+                            android:textColor="@color/secondary" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnLogout"
+                        style="@style/Button"
+                        android:layout_marginHorizontal="@dimen/space"
+                        android:layout_marginTop="@dimen/space"
+                        android:backgroundTint="@color/warning"
+                        android:text="@string/account_menu_logout" />
                 </LinearLayout>
-
-                <Button
-                    android:layout_marginHorizontal="@dimen/space"
-                    android:id="@+id/btnLogout"
-                    style="@style/Button"
-                    android:layout_marginTop="@dimen/space"
-                    android:text="@string/account_menu_logout" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
-
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </ScrollView>

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.boodabest.R
 import com.boodabest.core.BaseAuthFragment
+import com.boodabest.network.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.fragment_account_overview.*
@@ -20,7 +21,23 @@ class AccountOverviewFragment : BaseAuthFragment(R.layout.fragment_account_overv
         super.onViewCreated(view, savedInstanceState)
         app.updateTitle(getString(R.string.menu_account))
 
+        vSwipeRefresh.setOnRefreshListener {
+            auth.fetchMe()
+        }
+
+        btnLogout.setOnClickListener {
+            auth.logout()
+        }
+
+        initAccount()
+    }
+
+    private fun initAccount() {
+        auth.fetchMe()
         auth.me.observe(viewLifecycleOwner, Observer { user ->
+            if (user.status == Status.SUCCESS) {
+                vSwipeRefresh.isRefreshing = false
+            }
             if (user.data != null) {
                 txtFullName.text = user.data.fullName()
                 txtEmail.text = user.data.contactEmail
@@ -33,9 +50,6 @@ class AccountOverviewFragment : BaseAuthFragment(R.layout.fragment_account_overv
             }
         })
 
-        btnLogout.setOnClickListener {
-            auth.logout()
-        }
     }
 
 }
