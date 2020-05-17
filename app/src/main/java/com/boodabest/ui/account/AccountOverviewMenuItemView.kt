@@ -17,11 +17,17 @@ class AccountOverviewMenuItemView : FrameLayout {
     )
 
     init {
-        View.inflate(context, R.layout.fragment_account_overview_menu_item, this)
+        inflate(context, R.layout.fragment_account_overview_menu_item, this)
     }
 
     fun setTitle(text: String) {
         txtTitle?.text = text
+    }
+
+    fun setOnClick(callback: (view: View) -> Unit) {
+        vItem.setOnClickListener {
+            callback(it)
+        }
     }
 
 }

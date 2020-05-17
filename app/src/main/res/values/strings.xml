@@ -2,6 +2,7 @@
     <string name="app_name">ZeedSHOP</string>
 
     <string name="menu_account">Manage Account</string>
+    <string name="menu_profile">Your Profile</string>
     <string name="menu_login">Welcome to boodaBEST!</string>
 
     <string name="login_desc">The Best brands are waiting for you \nPlease login</string>

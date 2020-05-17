@@ -35,6 +35,12 @@ class AccountOverviewFragment : BaseAuthFragment(R.layout.fragment_account_overv
     }
 
     private fun initMenu() {
+        vProfileItem.setOnClick {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.container, AccountProfileFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
         vProfileItem.setTitle(getString(R.string.account_menu_profile))
         vAddressItem.setTitle(getString(R.string.account_menu_address))
         vPaymentItem.setTitle(getString(R.string.account_menu_payment))
