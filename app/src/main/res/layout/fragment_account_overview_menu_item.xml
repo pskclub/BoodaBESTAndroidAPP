@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/spaceXS"
-    android:background="@color/primaryLight"
-    android:orientation="horizontal"
-    android:paddingHorizontal="@dimen/spaceXXL"
-    android:paddingVertical="@dimen/spaceLG">
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="0dp"
+    android:backgroundTint="@color/primaryLight"
+    android:theme="@style/Theme.MaterialComponents.Light"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/account_menu_address_book"
-        android:textColor="@color/secondary" />
-</LinearLayout>
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spaceXXL"
+        android:paddingVertical="@dimen/space">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/secondary" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

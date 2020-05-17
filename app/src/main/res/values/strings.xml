@@ -32,5 +32,9 @@
     <string name="login_sign_up_btn">Sign Up</string>
     <string name="account_menu_logout">Logout</string>
     <string name="account_menu_profile">Profile</string>
-    <string name="account_menu_address_book">Address Book</string>
+    <string name="account_menu_address">Address Book</string>
+    <string name="account_menu_payment">Payment Option</string>
+    <string name="account_menu_change_password">Change Password</string>
+    <string name="account_menu_order">Order</string>
+    <string name="account_menu_change_lang">Language Change</string>
 </resources>

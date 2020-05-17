@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.boodabest.ui.account.AccountOverviewMenuItemView
+        android:id="@+id/vProfileItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.boodabest.ui.account.AccountOverviewMenuItemView
+        android:id="@+id/vAddressItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.boodabest.ui.account.AccountOverviewMenuItemView
+        android:id="@+id/vPaymentItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.boodabest.ui.account.AccountOverviewMenuItemView
+        android:id="@+id/vChangePassItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.boodabest.ui.account.AccountOverviewMenuItemView
+        android:id="@+id/vOrderItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.boodabest.ui.account.AccountOverviewMenuItemView
+        android:id="@+id/vChangeLangItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

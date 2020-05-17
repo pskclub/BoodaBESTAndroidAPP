@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.fragment_account_overview.*
 import kotlinx.android.synthetic.main.fragment_account_overview_header.*
+import kotlinx.android.synthetic.main.fragment_account_overview_menu.*
 
 class AccountOverviewFragment : BaseAuthFragment(R.layout.fragment_account_overview) {
     companion object {
@@ -29,13 +30,23 @@ class AccountOverviewFragment : BaseAuthFragment(R.layout.fragment_account_overv
             auth.logout()
         }
 
+        initMenu()
         initAccount()
+    }
+
+    private fun initMenu() {
+        vProfileItem.setTitle(getString(R.string.account_menu_profile))
+        vAddressItem.setTitle(getString(R.string.account_menu_address))
+        vPaymentItem.setTitle(getString(R.string.account_menu_payment))
+        vChangePassItem.setTitle(getString(R.string.account_menu_change_password))
+        vOrderItem.setTitle(getString(R.string.account_menu_order))
+        vChangeLangItem.setTitle(getString(R.string.account_menu_change_lang))
     }
 
     private fun initAccount() {
         auth.fetchMe()
         auth.me.observe(viewLifecycleOwner, Observer { user ->
-            if (user.status == Status.SUCCESS) {
+            if (user.status == Status.LOADED) {
                 vSwipeRefresh.isRefreshing = false
             }
             if (user.data != null) {
