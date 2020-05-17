@@ -38,4 +38,5 @@
     <string name="account_menu_change_password">Change Password</string>
     <string name="account_menu_order">Order</string>
     <string name="account_menu_change_lang">Language Change</string>
+    <string name="account_profile_edit_profile_photo">Edit Profile Photo</string>
 </resources>
