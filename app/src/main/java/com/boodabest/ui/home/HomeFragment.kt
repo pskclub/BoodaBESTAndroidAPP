@@ -1,7 +1,6 @@
 package com.boodabest.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
@@ -12,6 +11,7 @@ import com.boodabest.R
 import com.boodabest.core.BaseFragment
 import com.boodabest.database.Brand
 import com.boodabest.database.Product
+import com.boodabest.network.Status
 import com.boodabest.repositories.banner.BannerViewModel
 import com.boodabest.repositories.brand.BrandViewModel
 import com.boodabest.repositories.product.ProductViewModel
@@ -20,14 +20,60 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
+    private var isBrandLoaded = false
+    private var isBannerLoaded = false
+    private var isProductLatestLoaded = false
+    private var isProductBestLoaded = false
+
+    private val brandViewModel: BrandViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val bannerViewModel: BannerViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val productBestSellerViewModel: ProductViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val productLatestViewModel: ProductViewModel by viewModels {
+        viewModelFactory
+    }
+
+
     companion object {
         @JvmStatic
         fun newInstance() = HomeFragment().apply {}
     }
 
+    private fun onRefreshLoaded() {
+        if (
+            isBrandLoaded
+            && isBannerLoaded
+            && isProductBestLoaded
+            && isProductLatestLoaded
+        ) {
+            vSwipeRefresh.isRefreshing = false
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         app.updateTitle(getString(R.string.app_name))
+
+        vSwipeRefresh.setOnRefreshListener {
+            isBrandLoaded = false
+            isBannerLoaded = false
+            isProductBestLoaded = false
+            isProductLatestLoaded = false
+
+            brandViewModel.fetchItems()
+            bannerViewModel.fetchItems()
+            productBestSellerViewModel.fetchItems()
+            productLatestViewModel.fetchItems()
+        }
+
         initProductListLatest()
         initProductListBestSeller()
         initBannerList()
@@ -36,21 +82,21 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
 
     private fun initBannerList() {
-        val bannerViewModel: BannerViewModel by viewModels {
-            viewModelFactory
-        }
-
+        bannerViewModel.fetchItems()
         val bannerAdapter = BannerAdapter()
         bannerList.setSliderAdapter(bannerAdapter)
         bannerViewModel.items.observe(viewLifecycleOwner, Observer { banner ->
+            if (banner.status == Status.LOADED) {
+                isBannerLoaded = true
+                onRefreshLoaded()
+            }
+
             bannerAdapter.renewItems(banner.data)
         })
     }
 
     private fun initBrandList() {
-        val brandViewModel: BrandViewModel by viewModels {
-            viewModelFactory
-        }
+        brandViewModel.fetchItems()
         val brandAdapter = BrandAdapter(onBrandClick())
         brandList.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -58,16 +104,18 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
 
         brandViewModel.items.observe(viewLifecycleOwner, Observer { brand ->
+            if (brand.status == Status.LOADED) {
+                isBrandLoaded = true
+                onRefreshLoaded()
+            }
+
             brandAdapter.submitList(brand.data)
         })
     }
 
 
     private fun initProductListBestSeller() {
-        val productBestSellerViewModel: ProductViewModel by viewModels {
-            viewModelFactory
-        }
-
+        productBestSellerViewModel.fetchItems()
         val productBestSellerAdapter = ProductAdapter(appExecutors, onProductClick())
         productListBestSeller.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -75,16 +123,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
 
         productBestSellerViewModel.items.observe(viewLifecycleOwner, Observer { product ->
+            if (product.status == Status.LOADED) {
+                isProductBestLoaded = true
+                onRefreshLoaded()
+            }
             productBestSellerAdapter.submitList(product.data)
         })
 
     }
 
     private fun initProductListLatest() {
-        val productLatestViewModel: ProductViewModel by viewModels {
-            viewModelFactory
-        }
-
+        productLatestViewModel.fetchItems()
         val productLatestAdapter = ProductAdapter(appExecutors, onProductClick())
 
         productListLatest.apply {
@@ -94,7 +143,13 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         productLatestViewModel.items.observe(
             viewLifecycleOwner,
-            Observer { product -> productLatestAdapter.submitList(product.data) })
+            Observer { product ->
+                if (product.status == Status.LOADED) {
+                    isProductLatestLoaded = true
+                    onRefreshLoaded()
+                }
+                productLatestAdapter.submitList(product.data)
+            })
     }
 
     private fun onProductClick(): (Product, CardView) -> Unit {

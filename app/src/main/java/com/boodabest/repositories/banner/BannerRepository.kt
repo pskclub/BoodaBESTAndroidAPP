@@ -5,6 +5,7 @@ import com.boodabest.core.AppExecutors
 import com.boodabest.database.Banner
 import com.boodabest.database.BannerDao
 import com.boodabest.models.PageMeta
+import com.boodabest.models.RepoOptions
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.Resource
@@ -19,9 +20,7 @@ class BannerRepository @Inject constructor(
     private val bannerService: BannerService,
     private val bannerDao: BannerDao
 ) {
-
-
-    fun get(): LiveData<Resource<List<Banner>>> {
+    fun get(options: RepoOptions = RepoOptions()): LiveData<Resource<List<Banner>>> {
         return object : NetworkBoundResource<List<Banner>, PageMeta<Banner>>(appExecutors) {
             override fun createCall(): LiveData<ApiResponse<PageMeta<Banner>>> {
                 return bannerService.get()
@@ -33,7 +32,8 @@ class BannerRepository @Inject constructor(
                 bannerDao.inserts(item.items)
             }
 
-            override fun shouldFetch(data: List<Banner>?) = data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Banner>?) =
+                options.isNetworkOnly || data.isNullOrEmpty()
         }.asLiveData()
     }
 }

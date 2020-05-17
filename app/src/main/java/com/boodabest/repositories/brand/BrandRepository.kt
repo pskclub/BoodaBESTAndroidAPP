@@ -5,6 +5,7 @@ import com.boodabest.core.AppExecutors
 import com.boodabest.database.Brand
 import com.boodabest.database.BrandDao
 import com.boodabest.models.PageMeta
+import com.boodabest.models.RepoOptions
 import com.boodabest.network.ApiResponse
 import com.boodabest.network.NetworkBoundResource
 import com.boodabest.network.Resource
@@ -19,9 +20,7 @@ class BrandRepository @Inject constructor(
     private val brandService: BrandService,
     private val brandDao: BrandDao
 ) {
-
-
-    fun get(): LiveData<Resource<List<Brand>>> {
+    fun get(options: RepoOptions = RepoOptions()): LiveData<Resource<List<Brand>>> {
         return object : NetworkBoundResource<List<Brand>, PageMeta<Brand>>(appExecutors) {
             override fun createCall(): LiveData<ApiResponse<PageMeta<Brand>>> {
                 return brandService.get()
@@ -33,7 +32,8 @@ class BrandRepository @Inject constructor(
                 brandDao.inserts(item.items)
             }
 
-            override fun shouldFetch(data: List<Brand>?) = data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Brand>?) =
+                options.isNetworkOnly || data.isNullOrEmpty()
         }.asLiveData()
     }
 }

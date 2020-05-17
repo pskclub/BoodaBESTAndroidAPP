@@ -37,7 +37,7 @@ class ProductRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun get(): LiveData<Resource<List<Product>>> {
+    fun get(options: RepoOptions = RepoOptions()): LiveData<Resource<List<Product>>> {
         return object : NetworkBoundResource<List<Product>, PageMeta<Product>>(appExecutors) {
             override fun createCall(): LiveData<ApiResponse<PageMeta<Product>>> {
                 return productService.get()
@@ -49,7 +49,8 @@ class ProductRepository @Inject constructor(
                 productDao.inserts(item.items)
             }
 
-            override fun shouldFetch(data: List<Product>?) = data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Product>?) =
+                options.isNetworkOnly || data.isNullOrEmpty()
         }.asLiveData()
     }
 }
