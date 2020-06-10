@@ -70,7 +70,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
             brandViewModel.fetchItems()
             bannerViewModel.fetchItems()
-            productBestSellerViewModel.fetchItems()
+            productBestSellerViewModel.fetchItems("best-seller")
             productLatestViewModel.fetchItems()
         }
 
@@ -136,7 +136,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun initProductListLatest() {
         val productLatestAdapter = ProductAdapter(appExecutors, onProductClick())
-        productLatestViewModel.fetchItems("new-arrival")
+        productLatestViewModel.fetchItems()
         productLatestViewModel.items.observe(
             viewLifecycleOwner,
             Observer { product ->

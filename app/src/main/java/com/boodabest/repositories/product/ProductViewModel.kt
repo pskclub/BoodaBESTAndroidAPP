@@ -24,14 +24,16 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
     val items: LiveData<Resource<List<Product>>> = _fetchItems.switchMap { input ->
         input.ifExists { tag, options ->
-            Timber.w("tag $tag")
+            Timber.w("tag2 $tag")
             productRepository.getByTag(tag = tag, options = options)
         }
     }
 
 
     fun fetchItems(tag: String = "") {
+        Timber.w("tag $tag")
         val update = FetchItems(tag, RepoOptions(isNetworkOnly = true))
+        Timber.w("tag1.1 $tag")
         _fetchItems.value = update
     }
 
