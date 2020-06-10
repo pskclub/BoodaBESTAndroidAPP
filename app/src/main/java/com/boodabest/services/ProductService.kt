@@ -16,6 +16,7 @@ interface ProductService {
     @GET("products?limit=16")
     fun get(
         @Query("page") page: String = "",
-        @Query("keyword") query: String = ""
+        @Query("keyword") query: String = "",
+        @Query("alias") tag: String = ""
     ): LiveData<ApiResponse<PageMeta<Product>>>
 }

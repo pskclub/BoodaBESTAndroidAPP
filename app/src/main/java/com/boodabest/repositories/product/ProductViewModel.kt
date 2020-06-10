@@ -8,6 +8,7 @@ import com.boodabest.database.Product
 import com.boodabest.models.RepoOptions
 import com.boodabest.network.Resource
 import com.boodabest.utils.AbsentLiveData
+import timber.log.Timber
 import javax.inject.Inject
 
 class ProductViewModel @Inject constructor(private val productRepository: ProductRepository) :
@@ -22,21 +23,22 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     }
 
     val items: LiveData<Resource<List<Product>>> = _fetchItems.switchMap { input ->
-        input.ifExists { options ->
-            productRepository.get(options = options)
+        input.ifExists { tag, options ->
+            Timber.w("tag $tag")
+            productRepository.getByTag(tag = tag, options = options)
         }
     }
 
 
-    fun fetchItems() {
-        val update = FetchItems(RepoOptions(isNetworkOnly = true))
+    fun fetchItems(tag: String = "") {
+        val update = FetchItems(tag, RepoOptions(isNetworkOnly = true))
         _fetchItems.value = update
     }
 
 
-    data class FetchItems(val options: RepoOptions = RepoOptions()) {
-        fun <T> ifExists(f: (RepoOptions) -> LiveData<T>): LiveData<T> {
-            return f(options)
+    data class FetchItems(val tag: String = "", val options: RepoOptions = RepoOptions()) {
+        fun <T> ifExists(f: (String, RepoOptions) -> LiveData<T>): LiveData<T> {
+            return f(tag, options)
         }
     }
 

@@ -115,13 +115,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
 
     private fun initProductListBestSeller() {
-        productBestSellerViewModel.fetchItems()
         val productBestSellerAdapter = ProductAdapter(appExecutors, onProductClick())
-        productListBestSeller.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = productBestSellerAdapter
-        }
 
+        productBestSellerViewModel.fetchItems("best-seller")
         productBestSellerViewModel.items.observe(viewLifecycleOwner, Observer { product ->
             if (product.status == Status.LOADED) {
                 isProductBestLoaded = true
@@ -130,17 +126,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             productBestSellerAdapter.submitList(product.data)
         })
 
+        productListBestSeller.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = productBestSellerAdapter
+        }
+
+
     }
 
     private fun initProductListLatest() {
-        productLatestViewModel.fetchItems()
         val productLatestAdapter = ProductAdapter(appExecutors, onProductClick())
-
-        productListLatest.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = productLatestAdapter
-        }
-
+        productLatestViewModel.fetchItems("new-arrival")
         productLatestViewModel.items.observe(
             viewLifecycleOwner,
             Observer { product ->
@@ -150,6 +146,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
                 productLatestAdapter.submitList(product.data)
             })
+
+
+        productListLatest.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = productLatestAdapter
+        }
     }
 
     private fun onProductClick(): (Product, CardView) -> Unit {
